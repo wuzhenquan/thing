@@ -1,11 +1,12 @@
 const Koa = require('koa')
+const router = require('../routing')
+const bodyparser = require('koa-bodyparser')
 
 
 const app = new Koa()
-
-app.use(async ctx => {
-    ctx.body = 'hello world'
-})
+app.use(bodyparser())
+app.use(router.routes())
+app.use(ctx => { ctx.type = 'json' })
 
 exports.start = async () => {
     try {
