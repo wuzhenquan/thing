@@ -7,3 +7,7 @@ exports.read = async () => {
 exports.create = async ({ data = {} } = {}) => {
     return User.create(data)
 }
+
+exports.signin = async ({ data = {} } = {}) => {
+    return User.findOne({ name: data.name })
+}
