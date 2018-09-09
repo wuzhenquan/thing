@@ -2,19 +2,44 @@ const Koa = require('koa')
 const router = require('../routing')
 const bodyparser = require('koa-bodyparser')
 const database = require('../database')
+const SessionStore = require('./sessionStore')
+const session = require('koa-session')
 
+const CONFIG = {
+    key: 'koa:sess',
+    maxAge: 86400000,
+    overwrite: true,
+    httpOnly: true,
+    signed: true,
+    rolling: false,
+    store: new SessionStore()
+}
 
 const app = new Koa()
+app.keys = ['some secret key']; // needed for cookie-signing
+app.use(session(CONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())
-app.use(ctx => { ctx.type = 'json' })
+app.use(ctx => {
+    ctx.type = 'json'
+
+    // 获取session对象
+    const session = ctx.session;
+
+    // 给session赋值
+    session.userInfo = {
+        name:'anziguoer',
+        email:'anziguoer@163.com',
+        age : 28
+    }
+})
 
 exports.start = async () => {
     try {
         await database.connect()
         console.log('Connected to database')
         const port = 3000
-        await app.listen(3000)
+        await app.listen(port)
         console.log(`Connected on port: ${port}`)
     } catch (error) {
         console.log('Something went wrong')
