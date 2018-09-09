@@ -7,19 +7,18 @@ const schema = {
         type: Date
     }
 };
-export default class MongooseStore {
+const mongoose = require('mongoose');
+
+class MongooseStore {
     constructor({
         collection = 'sessions',
-        connection = null,
+        connection = mongoose,
         expires = 86400,
         name = 'Session'
     } = {}) {
-        if (!connection) {
-            throw new Error('params connection is not collection');
-        }
         const updatedAt = { ...schema.updatedAt, expires };
-        const { Mongo, Schema } = connection;
-        this.session = Mongo.model(name, new Schema({ ...schema, updatedAt }));
+        const { Schema } = connection;
+        this.session = connection.model(name, new Schema({ ...schema, updatedAt }), collection);
     }
 
     async destroy(id) {
@@ -29,7 +28,7 @@ export default class MongooseStore {
 
     async get(id) {
         const { session } = this;
-        const { data } = await session.findById(id);
+        const { data } = await session.findById(id) || {};
         return data;
     }
 
@@ -46,3 +45,5 @@ export default class MongooseStore {
         return new MongooseStore(opts);
     }
 }
+
+module.exports = MongooseStore;
