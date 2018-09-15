@@ -4,6 +4,7 @@ const bodyparser = require('koa-bodyparser')
 const database = require('../database')
 const SessionStore = require('./sessionStore')
 const session = require('koa-session')
+const cors = require('@koa/cors')
 
 const CONFIG = {
     key: 'koa:sess',
@@ -17,21 +18,22 @@ const CONFIG = {
 
 const app = new Koa()
 app.keys = ['some secret key']; // needed for cookie-signing
+app.use(cors({ origin: 'http://www.4399.com', credentials: true }))
 app.use(session(CONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())
 app.use(ctx => {
     ctx.type = 'json'
 
-    // 获取session对象
     const session = ctx.session;
 
-    // 给session赋值
     session.userInfo = {
-        name:'anziguoer',
-        email:'anziguoer@163.com',
-        age : 28
+        name: 'wuzhenquan',
+        email: 'anziguoer@163.com',
+        age: 28
     }
+    ctx.cookies.set('login', true)
+    ctx.body = 'ok'
 })
 
 exports.start = async () => {
