@@ -3,19 +3,39 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props)
+        this.state = {
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={() => {
+                        fetch('http://localhost:3000/', {
+                            method: 'GET',
+                            credentials: 'include'
+                        }).then(res => {
+                            return res.json()
+                        }).then(json=>{
+                        })
+                    }}
+                > get </button>
+                <button
+                    onClick={() => {
+                        fetch('http://localhost:3000/', {
+                            method: 'POST',
+                            credentials: 'include',
+                            body: '{"name": "wuzhenquan1", password: "123"}'
+                        })
+                    }}
+                > post </button>
+                {this.state.n}
+            </div>
+        );
+    }
 }
 
 export default App;
