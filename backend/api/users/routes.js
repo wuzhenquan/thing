@@ -1,5 +1,7 @@
-const router = require('koa-router')()
+const Router = require('koa-router')
+const router = new Router()
 const controller = require('./controller')
+const crypto = require('crypto')
 
 // get users data
 router.get('/', async ctx => {
@@ -22,6 +24,8 @@ router.post('/', async ctx => {
 router.post('/signin', async ctx => {
     const data = ctx.request.body
     const userInfo = await controller.signin({ data })
+
+    // validation
     if (!userInfo || (userInfo.name !== data.name)) {
         ctx.throw(401, 'User not found. ')
         return ctx.redirect('back')
@@ -30,8 +34,16 @@ router.post('/signin', async ctx => {
         ctx.throw(401, 'The password is incorrect.')
         return ctx.redirect('back')
     }
+
+    const token = crypto.createHash('md5')
+        .update(`${userInfo.name}${userInfo.password}`)
+        .digest('hex')
+
     ctx.session.user = userInfo
+    ctx.session.token = token
+    ctx.cookies.set('token', token)
+    ctx.body = userInfo
     // ctx.redirect(`/user/${userInfo.name}`)
 })
 
-module.exports = router.routes()
+module.exports = router

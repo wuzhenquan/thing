@@ -18,22 +18,14 @@ const CONFIG = {
 
 const app = new Koa()
 app.keys = ['some secret key']; // needed for cookie-signing
-app.use(cors({ origin: 'http://www.4399.com', credentials: true }))
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }))
 app.use(session(CONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())
 app.use(ctx => {
     ctx.type = 'json'
-
-    const session = ctx.session;
-
-    session.userInfo = {
-        name: 'wuzhenquan',
-        email: 'anziguoer@163.com',
-        age: 28
-    }
-    ctx.cookies.set('login', true)
-    ctx.body = 'ok'
+    ctx.body = 'index page'
+    // console.log(ctx.body,'ctx.body 1')
 })
 
 exports.start = async () => {
