@@ -14,21 +14,25 @@ class App extends Component {
             <div>
                 <button
                     onClick={() => {
-                        fetch('http://localhost:3000/', {
+                        fetch('http://localhost:3000/users', {
                             method: 'GET',
                             credentials: 'include'
                         }).then(res => {
-                            return res.json()
-                        }).then(json=>{
+                            // return res.json()
+                        }).then(json => {
                         })
                     }}
                 > get </button>
                 <button
                     onClick={() => {
-                        fetch('http://localhost:3000/', {
+                        fetch('http://localhost:3000/users/signin', {
                             method: 'POST',
                             credentials: 'include',
-                            body: '{"name": "wuzhenquan1", password: "123"}'
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ "name": "wuzhenquan1", "password": "123" })
                         })
                     }}
                 > post </button>
