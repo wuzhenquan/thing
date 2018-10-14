@@ -24,7 +24,7 @@ app.use(bodyparser())
 app.use(router.routes())
 app.use(ctx => {
     ctx.type = 'json'
-    ctx.body = 'index page'
+    ctx.body = { text: 'welcome' }
     // console.log(ctx.body,'ctx.body 1')
 })
 

@@ -9,6 +9,15 @@ router.get('/', async ctx => {
     ctx.body = users
 })
 
+router.get('/auth', async ctx => {
+    console.log(ctx.session, 'ctx.session')
+    if (ctx.session && ctx.session.user && ctx.session.user.name) {
+        ctx.body = { auth: true }
+    } else {
+        ctx.body = { auth: false }
+    }
+})
+
 // create user data info
 router.post('/', async ctx => {
     const data = ctx.request.body
