@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Header from './Header/Header'
 
 export default class PublicHomePage extends Component {
   static propTypes = {
@@ -9,7 +10,7 @@ export default class PublicHomePage extends Component {
   render() {
     return (
       <div>
-        home page
+        <Header/>
       </div>
     )
   }
