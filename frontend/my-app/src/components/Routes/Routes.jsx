@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Route, Redirect } from 'react-router-dom'
 import SignIn from '../../components/sign/SignIn'
 import SignUp from '../../components/sign/SignUp'
 import PublicHomePage from '../../components/PublicHomePage'

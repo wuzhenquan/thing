@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import * as api from './api'
 import Routes from './components/Routes/Routes'
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const auth = {
     isAuthenticated: false,

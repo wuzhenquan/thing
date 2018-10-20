@@ -3,13 +3,15 @@ const config = {
     init: { credentials: 'include' }
 }
 
-
 function get(params) {
     return fetch(`${config.host}/${params.a}`, {
         method: 'GET',
         ...config.init
     }).then((res) => {
         return res.json()
+    }).catch((error)=>{
+        console.error(error)
+        return {}
     })
 }
 
