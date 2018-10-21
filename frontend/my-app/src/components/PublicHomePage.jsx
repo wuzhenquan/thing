@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Header from './Header/Header'
 
 export default class PublicHomePage extends Component {
-  static propTypes = {
-    prop: PropTypes.any
-  }
+    static propTypes = {
+        isSignedIn: PropTypes.bool.isRequired
+    }
 
-  render() {
-    return (
-      <div>
-        <Header/>
-      </div>
-    )
-  }
+    render() {
+        const { isSignedIn } = this.props
+        return (
+            <section class="hero is-fullheight">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">Thing</h1>
+                        <h2 class="subtitle">make things clearer</h2>
+                    </div>
+                </div>
+            </section>
+        )
+    }
 }
 

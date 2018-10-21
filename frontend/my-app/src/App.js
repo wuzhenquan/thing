@@ -5,11 +5,11 @@ import Routes from './components/Routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 const auth = {
-    isAuthenticated: false,
+    isSignedIn: false,
     authenticate() {
         return api.auth().then((data) => {
             if (data.auth) {
-                this.isAuthenticated = true;
+                this.isSignedIn = true;
             }
         })
     }
@@ -30,7 +30,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Routes isAuthenticated={auth.isAuthenticated}/>
+                    <Routes isSignedIn={auth.isSignedIn}/>
                 </div>
             </Router>
         );
