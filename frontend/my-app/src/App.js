@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import './App.sass'
 import * as api from './api'
 import Routes from './components/Routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
