@@ -9,7 +9,7 @@ export default class PublicHomePage extends Component {
     render() {
         const { isSignedIn } = this.props
         return (
-            <section class="hero is-fullheight">
+            <section class="hero is-fullheight-with-navbar">
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">Thing</h1>

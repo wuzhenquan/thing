@@ -2,15 +2,47 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export default class SignIn extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
+    static propTypes = {
+        prop: PropTypes
+    }
 
-  render() {
-    return (
-      <div>
-        sign in page
-      </div>
-    )
-  }
+    render() {
+        return (
+            <section class="hero is-fullheight-with-navbar level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="email" placeholder="Email" />
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" type="password" placeholder="Password" />
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <button class="button is-primary is-fullwidth">
+                                    Sign in
+				    </button>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="is-size-7">Don't have an account? <a href="#">Sign up.</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        )
+    }
 }
