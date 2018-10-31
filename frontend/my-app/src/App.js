@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import './App.sass'
+import './App.scss'
 import * as api from './api'
-import Routes from './components/Routes/Routes'
+import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 const auth = {

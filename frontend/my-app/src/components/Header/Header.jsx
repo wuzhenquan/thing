@@ -47,10 +47,10 @@ export default class Header extends Component {
                             :
                             <div className="navbar-item">
                                 <div className="buttons">
-                                    <Link to="/signup" className="button is-small is-primary">
+                                    <Link to="/signup" className="button is-primary">
                                         <strong>Sign up</strong>
                                     </Link>
-                                    <Link to="/signin" className="button is-small is-light">
+                                    <Link to="/signin" className="button is-light">
                                         Sign in
                                     </Link>
                                 </div>

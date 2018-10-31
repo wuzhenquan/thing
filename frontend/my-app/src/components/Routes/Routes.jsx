@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom'
 import SignIn from '../../components/sign/SignIn'
 import SignUp from '../../components/sign/SignUp'
 import PublicHomePage from '../../components/PublicHomePage'
-import Header from '../Header/Header'
+import Header from '../header/Header'
 
 export default class PrivateRoute extends Component {
     static propTypes = {
