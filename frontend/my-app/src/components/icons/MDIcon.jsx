@@ -14,7 +14,6 @@ import {
 
 function MDIcon({ name, size=1 }){
     let path = mdiEmoticonHappy
-    console.log(name,'name')
     switch(name){
         case 'account': path = mdiAccount; break;
         case 'email': path = mdiEmail; break;

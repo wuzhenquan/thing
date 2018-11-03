@@ -7,13 +7,12 @@ export default class PublicHomePage extends Component {
     }
 
     render() {
-        const { isSignedIn } = this.props
         return (
-            <section class="hero is-fullheight-with-navbar">
-                <div class="hero-body">
-                    <div class="container">
-                        <h1 class="title">Thing</h1>
-                        <h2 class="subtitle">make things clearer</h2>
+            <section className="hero is-fullheight-with-navbar">
+                <div className="hero-body">
+                    <div className="container">
+                        <h1 className="title">Thing</h1>
+                        <h2 className="subtitle">make things clearer</h2>
                     </div>
                 </div>
             </section>

@@ -4,33 +4,38 @@ import * as api from './api'
 import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-const auth = {
-    isSignedIn: false,
-    authenticate() {
-        return api.auth().then((data) => {
-            if (data.auth) {
-                this.isSignedIn = true;
-            }
-        })
-    }
-};
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            loading: true,
+            isSignedIn: false
         }
     }
 
     componentDidMount() {
-        auth.authenticate()
+        api.auth().then((data) => {
+            // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
+            // 为什么不是合起来
+            if (data.auth) {
+                this.setState({ loading: false, isSignedIn: true })
+            } else {
+                this.setState({ loading: false })
+            }
+        })
     }
 
     render() {
         return (
             <Router>
                 <div>
-                    <Routes isSignedIn={auth.isSignedIn}/>
+                    { this.state.loading
+                        ?
+                        'loading'
+                        :
+                        <Routes isSignedIn={ this.state.isSignedIn } />
+                    }
                 </div>
             </Router>
         );
