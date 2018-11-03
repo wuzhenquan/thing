@@ -19,7 +19,7 @@ router.get('/auth', async ctx => {
 })
 
 // create user data info
-router.post('/', async ctx => {
+router.post('/signup', async ctx => {
     const data = ctx.request.body
     if (!data || !data.name || !data.password) {
         if (!data.name) ctx.throw(401, 'name is required.')
