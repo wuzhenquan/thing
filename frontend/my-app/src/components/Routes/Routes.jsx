@@ -8,55 +8,50 @@ import Header from '../header/Header'
 
 export default class PrivateRoute extends Component {
     static propTypes = {
-        isSignedIn: PropTypes.bool
+        isSignedIn: PropTypes.bool.isRequired
+    }
+
+    redirectWorkBench(props) {
+        return (
+            <Redirect
+                to={ { pathname: '/workbench/todo', state: { from: props.location } } }
+            />
+        )
+    }
+
+    redirectPublicHomePage(props) {
+        return (
+            <Redirect
+                to={ { pathname: '/public', state: { from: props.location } } }
+            />
+        )
+    }
+
+    redirectSignIn(props) {
+        return (
+            <Redirect
+                to={ { pathname: '/signin', state: { from: props.location } } }
+            />
+        )
     }
 
     render() {
         const { isSignedIn } = this.props;
         return (
             <div>
-                <Header
-                    isSignedIn={ isSignedIn }
+                <Header isSignedIn={ isSignedIn } />
+                <Route
+                    exact
+                    path="/"
+                    render={ props => isSignedIn ? this.redirectWorkBench(props) : this.redirectPublicHomePage(props) }
                 />
-                <Route exact path="/" render={
-                    props =>
-                        isSignedIn
-                            ?
-                            <div>workbench</div>
-                            :
-                            <Redirect
-                                to={ {
-                                    pathname: '/public',
-                                    state: { from: props.location }
-                                } }
-                            />
-                } />
+                <Route path="/public" render={ () => <PublicHomePage isSignedIn={ isSignedIn } /> } />
                 <Route
                     path="/workbench/:name"
-                    render={
-                        props =>
-                            isSignedIn
-                                ?
-                                <div>workbench</div>
-                                :
-                                <Redirect
-                                    to={ {
-                                        pathname: '/signin',
-                                        state: { from: props.location }
-                                    } }
-                                />
-                    }
+                    render={ props => { return isSignedIn ? <div>workbench</div> : this.redirectSignIn(props) } }
                 />
-                <Route
-                    path="/public"
-                    render={ () => {
-                        return <PublicHomePage
-                            isSignedIn={ isSignedIn }
-                        />
-                    } }
-                />
-                <Route path="/signin" component={ SignIn } />
-                <Route path="/signup" component={ SignUp } />
+                <Route path="/signin" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignIn /> } />
+                <Route path="/signup" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignUp /> } />
             </div>
         )
     }
