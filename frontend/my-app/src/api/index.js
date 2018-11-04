@@ -50,3 +50,7 @@ export function signIn(data) {
 export function signUp(data) {
     return post({ a: 'users/signup' }, data)
 }
+
+export function signOut() {
+    return post({ a: 'users/signout' })
+}

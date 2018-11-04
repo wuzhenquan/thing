@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import Icon from '@mdi/react'
-import { mdiAccount } from '@mdi/js'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-
 import logo from '../../images/logo.png'
+import UserDropDown from '../user/UserDropDown'
 
 export default class Header extends Component {
     state = {
@@ -22,18 +20,18 @@ export default class Header extends Component {
                 <div className="navbar-brand">
 
                     {/* logo */ }
-                    <a className="navbar-item">
-                        <img src={ logo } />
+                    <a href="/" className="navbar-item">
+                        <img src={ logo } alt="logo"/>
                     </a>
 
                     {/* burger */ }
-                    <a role="button" className={ `navbar-burger burger ${this.state.burgerOpen ? 'is-active' : ''}` } aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+                    <span className={ `navbar-burger burger ${this.state.burgerOpen ? 'is-active' : ''}` } aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
                         onClick={ () => { this.setState(state => ({ burgerOpen: !state.burgerOpen })) } }
                     >
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
-                    </a>
+                    </span>
 
                 </div>
                 {/* menu */}
@@ -42,7 +40,7 @@ export default class Header extends Component {
                         { isSignedIn
                             ?
                             <div className="navbar-item">
-                                <Icon path={ mdiAccount } size={ 1 } />
+                                <UserDropDown/>
                             </div>
                             :
                             <div className="navbar-item">
