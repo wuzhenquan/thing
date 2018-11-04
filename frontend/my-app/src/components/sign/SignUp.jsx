@@ -1,63 +1,105 @@
 import React, { Component } from 'react'
+import * as api from '../../api'
+import Icon from '../icons/Icon'
+import { withRouter } from "react-router-dom"
 import PropTypes from 'prop-types'
 
-export default class SignUp extends Component {
+class SignUp extends Component {
     static propTypes = {
-        prop: PropTypes
+        history: PropTypes.object.isRequired
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            email: '',
+            password: ''
+        }
+    }
+
+    submit() {
+        if (!this.state.name) return console.error('请输入名字')
+        else if (!this.state.password) return console.error('请输入密码')
+        api.signUp(
+            { name: this.state.name, email: this.state.email, password: this.state.password }
+        ).then(data => {
+            console.log(data, 'data')
+        })
     }
 
     render() {
         return (
-            <section class="hero is-fullheight-with-navbar level">
-                <div class="level-item has-text-centered">
+            <section className="hero is-fullheight-with-navbar level">
+                <div className="level-item has-text-centered">
                     <div>
-                        <div class="field">
-                            <p class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" placeholder="User name" required />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
+                        <div className="field">
+                            <p className="control has-icons-left has-icons-right">
+                                <input
+                                    className="input"
+                                    type="text"
+                                    placeholder="User name"
+                                    required
+                                    onChange={ (e) => { this.setState({ name: e.target.value }) } }
+                                />
+                                <span className="icon is-small is-left">
+                                    <Icon name='account' size={ 0.9 } />
                                 </span>
-                                <span class="icon is-small is-right">
-                                    <i class="fas fa-check"></i>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control has-icons-left has-icons-right">
-                                <input class="input" type="email" placeholder="Email" required />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
-                                <span class="icon is-small is-right">
-                                    <i class="fas fa-check"></i>
+                                <span className="icon is-small is-right">
+                                    <i className="fas fa-check"></i>
                                 </span>
                             </p>
                         </div>
-                        <div class="field">
-                            <p class="control has-icons-left">
-                                <input class="input" type="password" placeholder="Password" required />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
+                        <div className="field">
+                            <p className="control has-icons-left has-icons-right">
+                                <input
+                                    className="input"
+                                    type="email"
+                                    placeholder="Email" required
+                                    onChange={ (e) => { this.setState({ email: e.target.value }) } }
+                                />
+                                <span className="icon is-small is-left">
+                                    <Icon name='email' size={ 0.9 } />
+                                </span>
+                                <span className="icon is-small is-right">
+                                    <i className="fas fa-check"></i>
                                 </span>
                             </p>
                         </div>
-                        <div class="field">
-                            <p class="control has-icons-left">
-                                <input class="input" type="password" placeholder="Confirm password" required />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
+                        <div className="field">
+                            <p className="control has-icons-left">
+                                <input
+                                    className="input"
+                                    type="password"
+                                    placeholder="Password"
+                                    required
+                                    onChange={ (e) => { this.setState({ password: e.target.value }) } }
+                                />
+                                <span className="icon is-small is-left">
+                                    <Icon name='lock' size={ 0.9 } />
                                 </span>
                             </p>
                         </div>
-                        <div class="field">
-                            <p class="control">
-                                <button class="button is-primary is-fullwidth">
+                        {/* <div className="field">
+                            <p className="control has-icons-left">
+                                <input className="input" type="password" placeholder="Confirm password" required />
+                                <span className="icon is-small is-left">
+                                    <Icon name='lock' size={ 0.9 } />
+                                </span>
+                            </p>
+                        </div> */}
+                        <div className="field">
+                            <p className="control">
+                                <button
+                                    className="button is-primary is-fullwidth"
+                                    onClick={ () => { this.submit() } }
+                                >
                                     Sign up
-                            </button>
+                                </button>
                             </p>
                         </div>
                         <div>
-                            <p class="is-size-7">Already have an account? <a href="#">Sign in.</a></p>
+                            <p className="is-size-7">Already have an account? <a href="signin">Sign in.</a></p>
                         </div>
                     </div>
                 </div>
@@ -65,3 +107,5 @@ export default class SignUp extends Component {
         )
     }
 }
+
+export default withRouter(SignUp)

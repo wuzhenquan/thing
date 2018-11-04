@@ -48,7 +48,7 @@ export function signIn(data) {
 }
 
 export function signUp(data) {
-    return post({ a: 'users/signup' }, data)
+    return post({ a: 'users/signup', data })
 }
 
 export function signOut() {
