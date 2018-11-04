@@ -10,7 +10,6 @@ router.get('/', async ctx => {
 })
 
 router.get('/auth', async ctx => {
-    console.log(ctx.session, 'ctx.session')
     if (ctx.session && ctx.session.user && ctx.session.user.name) {
         ctx.body = { auth: true }
     } else {
@@ -53,6 +52,13 @@ router.post('/signin', async ctx => {
     ctx.cookies.set('token', token)
     ctx.body = userInfo
     // ctx.redirect(`/user/${userInfo.name}`)
+})
+
+router.post('/signout', async ctx => {
+    ctx.session.user = null
+    ctx.session.token = ''
+    ctx.cookies.set('token', '')
+    ctx.body = {}
 })
 
 module.exports = router
