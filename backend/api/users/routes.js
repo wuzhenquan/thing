@@ -26,7 +26,7 @@ router.post('/signup', async ctx => {
         return ctx.redirect('back')
     }
     const user = await controller.create({ data })
-    ctx.body = user
+    ctx.body = { success: true }
 })
 
 router.post('/signin', async ctx => {
@@ -50,7 +50,7 @@ router.post('/signin', async ctx => {
     ctx.session.user = userInfo
     ctx.session.token = token
     ctx.cookies.set('token', token)
-    ctx.body = userInfo
+    ctx.body = { success: true }
     // ctx.redirect(`/user/${userInfo.name}`)
 })
 
