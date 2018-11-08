@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as api from '../../api'
 import { withRouter } from "react-router-dom"
+import { CommonContext } from '../../CommonContext.js'
 
 class BtnSignOut extends Component {
     static propTypes = {
@@ -11,6 +12,7 @@ class BtnSignOut extends Component {
 
     render() {
         const { history } = this.props
+        console.log(this.context,'this.context')
         return (
             <div onClick={ () => { api.signOut().then(() => { history.push('/public')}) } }>
                 { this.props.children }
@@ -18,5 +20,7 @@ class BtnSignOut extends Component {
         )
     }
 }
+
+BtnSignOut.contextType  = CommonContext
 
 export default withRouter(BtnSignOut)

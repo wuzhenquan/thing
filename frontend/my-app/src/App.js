@@ -3,6 +3,7 @@ import './App.scss'
 import * as api from './api'
 import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { CommonContext } from './CommonContext'
 
 
 class App extends Component {
@@ -29,14 +30,16 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    { this.state.loading
-                        ?
-                        'loading'
-                        :
-                        <Routes isSignedIn={ this.state.isSignedIn } />
-                    }
-                </div>
+                <CommonContext.Provider value={{ isSignedIn: this.state.isSignedIn }}>
+                    <div>
+                        {this.state.loading
+                            ?
+                            'loading'
+                            :
+                            <Routes isSignedIn={this.state.isSignedIn} />
+                        }
+                    </div>
+                </CommonContext.Provider>
             </Router>
         );
     }
