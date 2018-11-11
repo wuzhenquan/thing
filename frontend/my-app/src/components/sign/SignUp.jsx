@@ -18,7 +18,8 @@ class SignUp extends Component {
         }
     }
 
-    submit() {
+    submit(e) {
+        e.preventDefault()
         if (!this.state.name) return console.error('请输入名字')
         else if (!this.state.password) return console.error('请输入密码')
         api.signUp(
@@ -31,7 +32,7 @@ class SignUp extends Component {
     render() {
         return (
             <section className="hero is-fullheight-with-navbar level">
-                <div className="level-item has-text-centered">
+                <form onSubmit={ (e) => { this.submit(e) } } className="level-item has-text-centered">
                     <div>
                         <div className="field">
                             <p className="control has-icons-left has-icons-right">
@@ -92,7 +93,6 @@ class SignUp extends Component {
                             <p className="control">
                                 <button
                                     className="button is-primary is-fullwidth"
-                                    onClick={ () => { this.submit() } }
                                 >
                                     Sign up
                                 </button>
@@ -102,8 +102,9 @@ class SignUp extends Component {
                             <p className="is-size-7">Already have an account? <a href="signin">Sign in.</a></p>
                         </div>
                     </div>
-                </div>
+                </form>
             </section>
+
         )
     }
 }
