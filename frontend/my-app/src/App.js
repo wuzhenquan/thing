@@ -16,13 +16,17 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.authenticate()
+    }
+
+    authenticate = () => {
         api.auth().then((user) => {
             // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
             // 为什么不是合起来
             if (user.name) {
                 this.setState({ loading: false, userInfo: user })
             } else {
-                this.setState({ loading: false })
+                this.setState({ loading: false , userInfo: {}})
             }
         })
     }
@@ -30,7 +34,12 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <UserContext.Provider value={ this.state.userInfo }>
+                <UserContext.Provider
+                    value={ {
+                        ...this.state.userInfo,
+                        authenticate: this.authenticate
+                    } }
+                >
                     <div>
                         { this.state.loading
                             ?
