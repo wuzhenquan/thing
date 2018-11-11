@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import SignIn from '../../components/sign/SignIn'
 import SignUp from '../../components/sign/SignUp'
 import PublicHomePage from '../../components/PublicHomePage'
 import Header from '../header/Header'
+import UserContext from '../../context/UserContext'
 
-export default class PrivateRoute extends Component {
-    static propTypes = {
-        isSignedIn: PropTypes.bool.isRequired
-    }
-
+class Routes extends Component {
     redirectWorkBench(props) {
         return (
             <Redirect
@@ -36,10 +32,11 @@ export default class PrivateRoute extends Component {
     }
 
     render() {
-        const { isSignedIn } = this.props;
+        const userInfo = this.context;
+        const isSignedIn = !!(userInfo && userInfo.name)
         return (
             <div>
-                <Header isSignedIn={ isSignedIn } />
+                <Header/>
                 <Route
                     exact
                     path="/"
@@ -56,3 +53,7 @@ export default class PrivateRoute extends Component {
         )
     }
 }
+
+Routes.contextType = UserContext
+
+export default Routes

@@ -3,7 +3,7 @@ import './App.scss'
 import * as api from './api'
 import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { CommonContext } from './CommonContext'
+import UserContext from './context/UserContext'
 
 
 class App extends Component {
@@ -11,16 +11,16 @@ class App extends Component {
         super(props)
         this.state = {
             loading: true,
-            isSignedIn: false
+            userInfo: {}
         }
     }
 
     componentDidMount() {
-        api.auth().then((data) => {
+        api.auth().then((user) => {
             // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
             // 为什么不是合起来
-            if (data.auth) {
-                this.setState({ loading: false, isSignedIn: true })
+            if (user.name) {
+                this.setState({ loading: false, userInfo: user })
             } else {
                 this.setState({ loading: false })
             }
@@ -30,16 +30,16 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <CommonContext.Provider value={{ isSignedIn: this.state.isSignedIn }}>
+                <UserContext.Provider value={ this.state.userInfo }>
                     <div>
-                        {this.state.loading
+                        { this.state.loading
                             ?
                             'loading'
                             :
-                            <Routes isSignedIn={this.state.isSignedIn} />
+                            <Routes />
                         }
                     </div>
-                </CommonContext.Provider>
+                </UserContext.Provider>
             </Router>
         );
     }

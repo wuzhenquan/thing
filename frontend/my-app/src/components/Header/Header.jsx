@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import UserDropDown from '../user/UserDropDown'
+import UserContext from '../../context/UserContext'
 
-export default class Header extends Component {
+class Header extends Component {
     state = {
         burgerOpen: false
     }
 
-    static propTypes = {
-        isSignedIn: PropTypes.bool.isRequired
-    }
-
     render() {
-        const { isSignedIn } = this.props
+        const userInfo = this.context;
+        const isSignedIn = !!(userInfo && userInfo.name)
         return (
             <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
@@ -60,3 +57,7 @@ export default class Header extends Component {
         )
     }
 }
+
+Header.contextType = UserContext
+
+export default Header
