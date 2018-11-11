@@ -9,11 +9,13 @@ router.get('/', async ctx => {
     ctx.body = users
 })
 
+// authenticate
 router.get('/auth', async ctx => {
-    if (ctx.session && ctx.session.user && ctx.session.user.name) {
-        ctx.body = { auth: true }
+    const userInfo = (ctx.session && ctx.session.user) || {}
+    if (userInfo.name) {
+        ctx.body = { name: userInfo.name }
     } else {
-        ctx.body = { auth: false }
+        ctx.body = {}
     }
 })
 
