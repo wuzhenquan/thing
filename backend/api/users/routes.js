@@ -27,7 +27,16 @@ router.post('/signup', async ctx => {
         if (!data.password) ctx.throw(401, 'password is required.')
         return ctx.redirect('back')
     }
-    const user = await controller.create({ data })
+    const userInfo = await controller.create({ data })
+
+    const token = crypto.createHash('md5')
+        .update(`${userInfo.name}${userInfo.password}`)
+        .digest('hex')
+
+    ctx.session.user = userInfo
+    ctx.session.token = token
+    ctx.cookies.set('token', token)
+
     ctx.body = { success: true }
 })
 
