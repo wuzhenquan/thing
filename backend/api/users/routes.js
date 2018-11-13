@@ -37,7 +37,11 @@ router.post('/signup', async ctx => {
     ctx.session.token = token
     ctx.cookies.set('token', token)
 
-    ctx.body = { success: true }
+    ctx.body = {
+        id: userInfo._id,
+        name: userInfo.name,
+        email: userInfo.email
+    }
 })
 
 router.post('/signin', async ctx => {
@@ -61,8 +65,11 @@ router.post('/signin', async ctx => {
     ctx.session.user = userInfo
     ctx.session.token = token
     ctx.cookies.set('token', token)
-    ctx.body = { success: true }
-    // ctx.redirect(`/user/${userInfo.name}`)
+    ctx.body = {
+        id: userInfo._id,
+        name: userInfo.name,
+        email: userInfo.email
+    }
 })
 
 router.post('/signout', async ctx => {
