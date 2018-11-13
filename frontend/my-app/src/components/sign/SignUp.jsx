@@ -26,8 +26,8 @@ class SignUp extends Component {
         else if (!this.state.password) return console.error('请输入密码')
         api.signUp(
             { name: this.state.name, email: this.state.email, password: this.state.password }
-        ).then(() => (
-            authenticate()
+        ).then((user) => (
+            authenticate(user)
         )).then(() => {
             history.push('/workbench/todo')
         })

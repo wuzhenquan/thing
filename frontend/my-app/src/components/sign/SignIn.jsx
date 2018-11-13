@@ -26,8 +26,8 @@ class SignIn extends Component {
         api.signIn({
             name: this.state.name,
             password: this.state.password
-        }).then(() => (
-            authenticate()
+        }).then((user) => (
+            authenticate(user)
         )).then(() => {
             history.push('/workbench/todo')
         })
