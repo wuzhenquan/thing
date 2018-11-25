@@ -24,6 +24,7 @@ class App extends Component {
             this.setState({ loading: false, userInfo: user })
         } else {
             api.auth().then((user) => {
+                console.info(user,'user')
                 // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
                 // 为什么不是合起来
                 if (user.name) {

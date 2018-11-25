@@ -1,10 +1,10 @@
 const config = {
-    host: 'http://localhost:3000',
+    host: 'http://wuzhenquan.me:3000',
     init: { credentials: 'include' }
 }
 
 function get(params) {
-    return fetch(`${config.host}/${params.a}`, {
+    return fetch(`/${params.a}`, {
         method: 'GET',
         ...config.init
     }).then((res) => {
@@ -19,7 +19,7 @@ function get(params) {
 function post(params) {
     const a = params.a
     const data = params.data || {}
-    return fetch(`${config.host}/${a}`, {
+    return fetch(`/${a}`, {
         method: 'POST',
         cache: "no-cache",
         headers: {
