@@ -18,7 +18,7 @@ const CONFIG = {
 
 const app = new Koa()
 app.keys = ['some secret key']; // needed for cookie-signing
-app.use(cors({ origin: 'http://localhost:5000', credentials: true }))
+app.use(cors({ origin: 'http://119.29.102.27:5000', credentials: true }))
 app.use(session(CONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())

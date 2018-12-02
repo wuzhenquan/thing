@@ -1,7 +1,7 @@
 
 const config = {
-    baseUrl: process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : '',
-    init: { credentials: 'include' },
+    baseUrl: process.env.NODE_ENV === 'production' ? 'http://119.29.102.27:3001' : '',
+    init: { credentials: 'include' }
 }
 
 function get(params) {
