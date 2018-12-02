@@ -1,10 +1,11 @@
+
 const config = {
-    host: 'http://wuzhenquan.me:3000',
-    init: { credentials: 'include' }
+    baseUrl: process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : '',
+    init: { credentials: 'include' },
 }
 
 function get(params) {
-    return fetch(`/${params.a}`, {
+    return fetch(`${config.baseUrl}/${params.a}`, {
         method: 'GET',
         ...config.init
     }).then((res) => {
@@ -19,13 +20,11 @@ function get(params) {
 function post(params) {
     const a = params.a
     const data = params.data || {}
-    return fetch(`/${a}`, {
+    return fetch(`${config.baseUrl}/${a}`, {
         method: 'POST',
-        cache: "no-cache",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        },
         ...config.init,
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
         body: JSON.stringify(data)
     }).then((res) => {
         return res.json()
