@@ -5,6 +5,7 @@ import SignUp from '../../components/sign/SignUp'
 import PublicHomePage from '../../components/PublicHomePage'
 import Header from '../header/Header'
 import UserContext from '../../context/UserContext'
+import Workbench from '../WorkBench'
 
 class Routes extends Component {
     redirectWorkBench(props) {
@@ -45,7 +46,7 @@ class Routes extends Component {
                 <Route path="/public" render={ () => <PublicHomePage isSignedIn={ isSignedIn } /> } />
                 <Route
                     path="/workbench/:name"
-                    render={ props => { return isSignedIn ? <div>workbench</div> : this.redirectSignIn(props) } }
+                    render={ props => { return isSignedIn ? <Workbench/> : this.redirectSignIn(props) } }
                 />
                 <Route path="/signin" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignIn /> } />
                 <Route path="/signup" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignUp /> } />
