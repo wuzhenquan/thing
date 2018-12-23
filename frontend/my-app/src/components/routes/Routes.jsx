@@ -35,40 +35,22 @@ class Routes extends Component {
     render() {
         const userInfo = this.context
         const isSignedIn = !!(userInfo && userInfo.name)
-        const routes = [
-            {
-                path: '/',
-                exact: true,
-                render: props => isSignedIn ? this.redirectWorkBench(props) : this.redirectPublicHomePage(props)
-            },
-            {
-                path: '/public',
-                render: <PublicHomePage isSignedIn={ isSignedIn } />
-            },
-            {
-                path: '/workbench/:name',
-                render: props => { return isSignedIn ? <WorkbenchRoutes props={ props } /> : this.redirectSignIn(props) }
-            },
-            {
-                path: '/signin',
-                render: props => isSignedIn ? this.redirectWorkBench(props) : <SignIn />
-            },
-            {
-                path: '/signup',
-                render: props => isSignedIn ? this.redirectWorkBench(props) : <SignUp />
-            }
-        ]
         return (
             <div>
-                <Header />
-                { routes.map((route, index) => {
-                    return <Route
-                        key={ index }
-                        path={ route.path }
-                        exact={ route.exact }
-                        render={ route.render }
-                    />
-                }) }
+                <Header/>
+                <Route
+                    exact
+                    path="/"
+                    render={ props => isSignedIn ? this.redirectWorkBench(props) : this.redirectPublicHomePage(props) }
+                />
+                <Route path="/public" render={ () => <PublicHomePage isSignedIn={ isSignedIn } /> } />
+                <Route
+                    path="/workbench/:name"
+                    render={ props => { return isSignedIn ? <WorkbenchRoutes props={props}/> : this.redirectSignIn(props) } }
+                >
+                </Route>
+                <Route path="/signin" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignIn /> } />
+                <Route path="/signup" render={ props => isSignedIn ? this.redirectWorkBench(props) : <SignUp /> } />
             </div>
         )
     }

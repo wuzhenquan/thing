@@ -1,0 +1,15 @@
+@import "../../mystyles.scss";
+
+.menu {
+    a {
+        color: $inactiveColor;
+    }
+}
+
+.menu-label {
+    &.active {
+        color: $primary;
+        font-weight: bold;
+    }
+    text-align: center
+}
