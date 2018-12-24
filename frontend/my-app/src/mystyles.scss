@@ -15,7 +15,8 @@ $google-red: #DB4437;
 $google-yellow: #F4B400;
 $google-green: #0F9D58;
 // Update Bulma's global variables
-$primary: #617D8A;
+// $primary: rgb(198, 210, 216);
+$primary: $black;
 
 // Update some of Bulma's component variables
 $navbar-height: 3.25rem;
