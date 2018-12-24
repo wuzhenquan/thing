@@ -1,19 +1,20 @@
 import React from 'react'
 import Icon from '@mdi/react'
+import * as mdIcons from '@mdi/js'
+import myStyles from '../../../src/mystyles.scss'
 
-import { mdiEmoticonHappy, mdiAccount, mdiEmail, mdiLock, mdiCheck, mdiAlert } from '@mdi/js'
-
-function MDIcon({ name, size = 1 }) {
-    let path = mdiEmoticonHappy
+function MDIcon({ name, size = 1, color = 'primary' }) {
+    let path = mdIcons.mdiEmoticonHappy
     switch (name) {
-        case 'account': path = mdiAccount; break;
-        case 'email': path = mdiEmail; break;
-        case 'lock': path = mdiLock; break;
-        case 'check': path = mdiCheck; break;
-        case 'alert': path = mdiAlert; break;
+        case 'account': path = mdIcons.mdiAccount; break;
+        case 'email': path = mdIcons.mdiEmail; break;
+        case 'lock': path = mdIcons.mdiLock; break;
+        case 'check': path = mdIcons.mdiCheck; break;
+        case 'alert': path = mdIcons.mdiAlert; break;
+        case 'plus': path = mdIcons.mdiPlus; break;
         default: break;
     }
-    return <Icon path={ path } size={ size } />
+    return <Icon path={ path } size={ size } color={ myStyles[color] } />
 }
 
 export default MDIcon

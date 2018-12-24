@@ -1,15 +1,12 @@
 @charset "utf-8";
-
 // Set your brand colors
 $white: #ffffff;
 $black: #101924;
 $iconColor: #607d8b;
 $inactiveColor: #97989D;
-
 $p:#212121;
 $p-dark:#000000;
 $p-light:#484848;
-
 $google-blue: #4285F4;
 $google-red: #DB4437;
 $google-yellow: #F4B400;
@@ -17,11 +14,9 @@ $google-green: #0F9D58;
 // Update Bulma's global variables
 // $primary: rgb(198, 210, 216);
 $primary: $black;
-
 // Update some of Bulma's component variables
 $navbar-height: 3.25rem;
 // $body-background-color: $beige-lighter;
-
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
@@ -36,3 +31,7 @@ $navbar-height: 3.25rem;
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
+// export variables 
+:export {
+    primary: $primary;
+}
