@@ -1,14 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Icon from '../../icons/Icon'
 
-export default class TODO extends Component {
-   
-
-    render() {
-        return (
+function Todo() {
+    return (
+        <div>
             <div>
-                TODO
+                <span className="pointer" onClick={ () => { } }>
+                    <Icon name='plus' />
+                    Add todo
+                </span>
             </div>
-        )
-    }
+            <div>
+                <span className="pointer" onClick={ () => { } }>
+                    <Icon name='radioBoxBlank' />
+                </span>
+                <input />
+            </div>
+        </div>
+    )
 }
+
+export default Todo

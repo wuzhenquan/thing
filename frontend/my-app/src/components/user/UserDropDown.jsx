@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Icon from '@mdi/react'
-import { mdiAccount } from '@mdi/js'
+import Icon from '../icons/Icon'
 import BtnSignOut from '../sign/BtnSignOut'
 
 export default class UserDropDown extends Component {
@@ -18,7 +17,7 @@ export default class UserDropDown extends Component {
                     className="dropdown-trigger"
                     onClick={ () => { this.setState(state => ({ isActive: !state.isActive })) } }
                 >
-                    <Icon path={ mdiAccount } size={ 1 } />
+                    <Icon name='account' size={ 0.9 } />
                 </div>
                 <div className="dropdown-menu" id="dropdown-menu4" role="menu">
                     <div className="dropdown-content">

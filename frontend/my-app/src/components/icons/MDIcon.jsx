@@ -2,9 +2,11 @@ import React from 'react'
 import Icon from '@mdi/react'
 import * as mdIcons from '@mdi/js'
 import myStyles from '../../../src/mystyles.scss'
+import './MDIcon.scss'
 
-function MDIcon({ name, size = 1, color = 'primary' }) {
+function MDIcon({ name, size = '1em', color = 'primary' }) {
     let path = mdIcons.mdiEmoticonHappy
+    let iconColor = myStyles[color] || color
     switch (name) {
         case 'account': path = mdIcons.mdiAccount; break;
         case 'email': path = mdIcons.mdiEmail; break;
@@ -12,9 +14,14 @@ function MDIcon({ name, size = 1, color = 'primary' }) {
         case 'check': path = mdIcons.mdiCheck; break;
         case 'alert': path = mdIcons.mdiAlert; break;
         case 'plus': path = mdIcons.mdiPlus; break;
+        case 'radioBoxBlank': path = mdIcons.mdiRadioboxBlank; break;
         default: break;
     }
-    return <Icon path={ path } size={ size } color={ myStyles[color] } />
+    return (
+        <div className="icon baseline">
+            <Icon path={ path } size={ size } color={ iconColor } />
+        </div>
+    )
 }
 
 export default MDIcon

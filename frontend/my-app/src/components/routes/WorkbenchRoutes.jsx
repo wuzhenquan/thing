@@ -7,12 +7,8 @@ import Developing from '../workspaces/Developing'
 import './workbench.scss'
 
 export default class WorkbenchRoutes extends Component {
-    static propTypes = {
-        props: PropTypes.object.isRequired
-    }
 
     render() {
-        const { props } = this.props
         return (
             <div className="columns is-fullheight">
                 <Sidebar />
