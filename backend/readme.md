@@ -1,16 +1,41 @@
+
+
+### macOS
+
+install MongoDB with homebrew
+
+1. `brew update`
+
+2. `brew install mongodb`
+
+3. create the directory in the default location by running `mkdir -p /data/db`
+
+4. make sure that the  `/data/db` directory has the right permission，
+
+   ```shell
+   sudo chown -R `id -un` /data/db
+   ```
+
+run MongoDB
+
+1. *Run the Mongo daemon*: run `mongod` to start Mongo server. Exit it run hit 'ctrl+c'
+2. *Run the Mongo shell*: run `mongo` . Exit it run `quite()`
+
 ### windows
 
-错误：`NODE_PATH不是内部或外部命令的错误`
+#### error handling
 
-解决办法：安装 `npm install cross-env -g`
+error：`NODE_PATH不是内部或外部命令的错误`
 
-在 package.json 的 start 里加上 cross-env。 `"start": "NODE_PATH=src node index.js"` 改为 `"start": "cross-env NODE_PATH=src node index.js"`
+soultion：
 
+1.  `npm install cross-env -g`
 
+2. `"start": "cross-env NODE_PATH=src node index.js"` instead of `"start": "NODE_PATH=src node index.js"` 
 
-安装 mongoDB
+#### install mongoDB
 
-1. 下载地址：https://www.mongodb.com/download-center/community
+1. download url：https://www.mongodb.com/download-center/community
 2. create the data folders to store our databases
    1. create `data` folder in C Drive
    2. create `db` folder in `data`folder
