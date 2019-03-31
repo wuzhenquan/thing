@@ -1,5 +1,5 @@
 
-module.exports = {
+{
     "env": {
         "es6": true,
         "node": true
@@ -7,27 +7,26 @@ module.exports = {
     "globals": {
     },
     "extends": [
-        "eslint:recommended",
+        "eslint:recommended"
     ],
-    "parserOptions": { //启用对 ECMAScript 8 和 JSX 的支持
+    "parserOptions": {
         "ecmaVersion": 8,
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
-            "jsx": true,
             "classes": true
         },
         "sourceType": "module"
     },
     "rules": {
         "indent": [
-            "off", // 缩进检查关掉
+            "off",
             "tab"
         ],
         "quotes": [
-            "off", // 是否用双引号的检查关掉
+            "off",
             "double"
         ],
-        "no-unused-vars": [ // 推荐不要出现未使用过的变量
+        "no-unused-vars": [
             "warn",
             { "vars": "all", "args": "after-used" }
         ],
@@ -36,4 +35,4 @@ module.exports = {
         "no-console": "warn",
         "require-yield": "warn"
     }
-};
+}
