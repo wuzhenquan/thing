@@ -60,7 +60,7 @@ connect = () => {
         connection.once('open', resolve)
     })
 }
-await connect()
+connect()
 // 创建 model
 const UserSchema = new Schema({ username: {type: String} })
 const User = mongoose.model('User', UserSchema)
