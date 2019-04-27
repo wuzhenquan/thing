@@ -1,8 +1,8 @@
 const Router = require('koa-router')
-const router = new Router()
 const controller = require('./controller')
 const crypto = require('crypto')
 
+const router = new Router()
 // get users data
 router.get('/', async ctx => {
     const users = await controller.read()

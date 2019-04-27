@@ -4,10 +4,10 @@ exports.read = async () => {
     return User.find()
 }
 
-exports.create = async ({ data = {} } = {}) => {
+exports.create = ({ data = {} } = {}) => {
     return User.create(data)
 }
 
-exports.signin = async ({ data = {} } = {}) => {
+exports.signin = ({ data = {} } = {}) => {
     return User.findOne({ name: data.name })
 }
