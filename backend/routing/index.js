@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const usersRouter = require('../api/users/routes')
+const todosRouter = require('../api/todos/routes')
 
 router
     .use((ctx, next) => {
@@ -17,5 +18,6 @@ router
         }
     })
     .use('/users', usersRouter.routes())
+    .use('/todos', todosRouter.routes())
 
 module.exports = router
