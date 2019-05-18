@@ -1,6 +1,8 @@
-
 const config = {
-    baseUrl: process.env.NODE_ENV === 'production' ? 'http://119.29.102.27:3001' : '',
+    baseUrl:
+        process.env.NODE_ENV === 'production'
+            ? 'http://119.29.102.27:3001'
+            : '',
     init: { credentials: 'include' }
 }
 
@@ -8,14 +10,15 @@ function get(params) {
     return fetch(`${config.baseUrl}/${params.a}`, {
         method: 'GET',
         ...config.init
-    }).then((res) => {
-        return res.json()
-    }).catch((error) => {
-        console.error(error)
-        return {}
     })
+        .then(res => {
+            return res.json()
+        })
+        .catch(error => {
+            console.error(error)
+            return {}
+        })
 }
-
 
 function post(params) {
     const a = params.a
@@ -23,19 +26,16 @@ function post(params) {
     return fetch(`${config.baseUrl}/${a}`, {
         method: 'POST',
         ...config.init,
-        cache: "no-cache",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify(data)
-    }).then((res) => {
-        return res.json()
-    }).catch((error) => {
-        console.error(error)
-        return {}
     })
+        .then(res => res.json())
+        .catch(error => ({}))
 }
 
 export function auth() {
-    return get(({ a: 'users/auth' }))
+    return get({ a: 'users/auth' })
 }
 
 export function getHomePage() {
@@ -52,4 +52,12 @@ export function signUp(data) {
 
 export function signOut() {
     return post({ a: 'users/signout' })
+}
+
+export function getTodo() {
+    return getHomePage({ a: 'todos/' })
+}
+
+export function addTodo(data) {
+    return post({ a: 'todos/', data })
 }

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Sidebar from '../sidebar/Sidebar'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Todo from '../workspaces/todo/Todo'
 import Developing from '../workspaces/Developing'
 import './workbench.scss'
 
 export default class WorkbenchRoutes extends Component {
-
     render() {
         return (
             <div className="columns is-fullheight">
