@@ -18,7 +18,7 @@ install MongoDB with homebrew
 
 run MongoDB
 
-1. *Run the Mongo daemon*: run `mongod` to start Mongo server. Exit it run hit 'ctrl+c'
+1. *Run the Mongo daemon*: run `sudo mongod` to start Mongo server. Exit it run hit 'ctrl+c'
 2. *Run the Mongo shell*: run `mongo` . Exit it run `quite()`
 
 ### windows
