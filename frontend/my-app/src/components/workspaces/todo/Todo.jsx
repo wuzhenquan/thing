@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
+import TodoContext from '../../../context/Todo/TodoContext'
+import WithTodoContext from '../../../context/Todo/WithTodoContext'
 
 class Todo extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ class Todo extends Component {
         this.textareaRef = React.createRef();
     }
 
-    addTodo() {
+    addTodo = () => {
         const todoArr = this.state.todoArr
         const order = todoArr.length + 1
         const id = order
@@ -42,6 +44,12 @@ class Todo extends Component {
 
     render() {
         return (
+            <TodoContext.Provider
+                value={{
+                    todoArr: this.state.todoArr,
+                    addTodo: this.addTodo
+                }}
+            >
             <div>
                 <div>
                     <span className="pointer" onClick={ () => { this.addTodo() } }>
@@ -75,8 +83,9 @@ class Todo extends Component {
                     }) }
                 </div>
             </div>
+          </TodoContext.Provider>
         );
     }
 }
 
-export default Todo
+export default WithTodoContext(Todo)
