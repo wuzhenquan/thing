@@ -1,41 +1,31 @@
 import React, { Component } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
-import TodoContext from '../../../context/Todo/TodoContext'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
 
 class Todo extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            todoArr: [],
-            focusTodoId: 0
-        }
-        this.textareaRef = React.createRef();
+        this.textareaRef = React.createRef()
+    }
+
+    state = {
+        focusTodoId: 0
     }
 
     addTodo = () => {
-        const todoArr = this.state.todoArr
-        const order = todoArr.length + 1
-        const id = order
-        const content = ''
-        this.changeFocusId(id)
-        this.setState((state) => {
-            const todoArr = [{ id, content, order }].concat(state.todoArr)
-            return { todoArr }
-        }, () => {
-            // next add request todo api
-            // only request successful, then we can add next
-        })
+        const { addTodo } = this.props.todoContext
+        // 或者用 async await ？
+        addTodo()
+            .then(id => this.changeFocusId(id))
+            .catch(() => {
+                /* error message for failed added */
+            })
     }
 
     editTodo = (info, index) => {
-        this.setState((state) => {
-            let todoArr = state.todoArr
-            todoArr[index] = info
-            return { todoArr }
-        })
-        this.changeFocusId(0)
+        const { editTodo } = this.props.todoContext
+        editTodo(info, index).then(() => this.changeFocusId(0))
     }
 
     changeFocusId = (todoId) => {
@@ -43,48 +33,41 @@ class Todo extends Component {
     }
 
     render() {
+        const { todoContext } = this.props
+        const { todosData } = todoContext
         return (
-            <TodoContext.Provider
-                value={{
-                    todoArr: this.state.todoArr,
-                    addTodo: this.addTodo
-                }}
-            >
             <div>
-                <div>
-                    <span className="pointer" onClick={ () => { this.addTodo() } }>
-                        <Icon name='plus' />
-                        Add todo
+                <span className="pointer" onClick={this.addTodo}>
+                    <Icon name="plus" />
+                    Add todo
                 </span>
-                </div>
-                <div>
-                    {/* not align center in this annotation https://zhuanlan.zhihu.com/p/28626505 
+                {/* not align center in this annotation https://zhuanlan.zhihu.com/p/28626505
                 <span className="pointer" onClick={ () => { } }>
                     <Icon name='radioBoxBlank' />
                 </span>
                 <textarea />
                 <input/> */}
-                    { this.state.todoArr.map((item, index) => {
-                        const todoId = item.id
-                        const focusing = todoId === this.state.focusTodoId
-                        const textareaRef = focusing ? this.textareaRef : Object.create(null)
-                        return (
-                            <TodoItem
-                                key={ todoId }
-                                id={ todoId }
-                                index={ index }
-                                info={ item }
-                                changeFocusId={ this.changeFocusId }
-                                focusing={ focusing }
-                                textareaRef={ textareaRef }
-                                editTodo={ this.editTodo }
-                            />
-                        )
-                    }) }
-                </div>
+                {todosData.map((item, index) => {
+                    const todoId = item.id
+                    const focusing = todoId === this.state.focusTodoId
+                    const textareaRef = focusing
+                        ? this.textareaRef
+                        : Object.create(null)
+                    return (
+                        <TodoItem
+                            key={todoId}
+                            id={todoId}
+                            index={index}
+                            info={item}
+                            changeFocusId={this.changeFocusId}
+                            focusing={focusing}
+                            textareaRef={textareaRef}
+                            editTodo={this.editTodo}
+                        />
+                    )
+                })}
             </div>
-          </TodoContext.Provider>
-        );
+        )
     }
 }
 

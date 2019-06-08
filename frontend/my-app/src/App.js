@@ -4,6 +4,7 @@ import * as api from './api'
 import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
 import UserContext from './context/UserContext'
+import TodoStore from './store/TodoStore'
 
 
 class App extends Component {
@@ -45,14 +46,14 @@ class App extends Component {
                         authenticate: this.authenticate
                     } }
                 >
-                    <div>
-                        { this.state.loading
+                    <TodoStore>
+                    { this.state.loading
                             ?
                             'loading'
                             :
                             <Routes />
-                        }
-                    </div>
+                        }                    
+                    </TodoStore>
                 </UserContext.Provider>
             </Router>
         );
