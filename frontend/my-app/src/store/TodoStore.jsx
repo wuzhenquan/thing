@@ -5,7 +5,13 @@ import * as api from '../api'
 
 class TodoStore extends Component {
     state = {
-        todosData: [],
+        todosData: []
+    }
+
+    getTodos = () => {
+        return api.getTodos().then(todosData => {
+            this.setState({ todosData })
+        })
     }
 
     addTodo = () => {
@@ -17,7 +23,7 @@ class TodoStore extends Component {
             const todosData = [{ id, content, order }].concat(state.todosData)
             return { todosData }
         })
-        return api.addTodo({ id, content, order })
+        return api.addTodo({ id, content, order }).then(() => id)
     }
 
     editTodo = (info, index) => {
@@ -26,7 +32,7 @@ class TodoStore extends Component {
             todosData[index] = info
             return { todosData }
         })
-        return new Promise((resolve)=> resolve())
+        return new Promise(resolve => resolve())
     }
 
     render() {
@@ -34,6 +40,7 @@ class TodoStore extends Component {
             <TodoContext.Provider
                 value={{
                     todosData: this.state.todosData,
+                    getTodos: this.getTodos,
                     addTodo: this.addTodo,
                     editTodo: this.editTodo
                 }}

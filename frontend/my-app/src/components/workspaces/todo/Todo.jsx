@@ -13,6 +13,11 @@ class Todo extends Component {
         focusTodoId: 0
     }
 
+    componentDidMount() {
+        const { getTodos } = this.props.todoContext
+        getTodos()
+    }
+
     addTodo = () => {
         const { addTodo } = this.props.todoContext
         // 或者用 async await ？
@@ -28,7 +33,7 @@ class Todo extends Component {
         editTodo(info, index).then(() => this.changeFocusId(0))
     }
 
-    changeFocusId = (todoId) => {
+    changeFocusId = todoId => {
         this.setState({ focusTodoId: todoId || 0 })
     }
 
