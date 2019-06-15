@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose
 
 const todoSchema = new Schema({
-  content: { type: String, required: true },
+  content: { type: String, default: '' },
   create_on: { type: Date, default: Date.now },
   update_on: { type: Date, default: Date.now }
 })

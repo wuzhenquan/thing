@@ -18,9 +18,9 @@ function MDIcon({ name, size = '1em', color = 'primary' }) {
         default: break;
     }
     return (
-        <div className="icon baseline">
+        <span className="icon baseline">
             <Icon path={ path } size={ size } color={ iconColor } />
-        </div>
+        </span>
     )
 }
 

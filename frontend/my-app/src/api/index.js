@@ -54,10 +54,10 @@ export function signOut() {
     return post({ a: 'users/signout' })
 }
 
-export function getTodo() {
-    return getHomePage({ a: 'todos/' })
+export function getTodos() {
+    return get({ a: 'todos' })
 }
 
 export function addTodo(data) {
-    return post({ a: 'todos/', data })
+    return post({ a: 'todos', data })
 }

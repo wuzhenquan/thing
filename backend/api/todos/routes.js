@@ -11,11 +11,12 @@ router.get('/', async ctx => {
 // create todo data
 router.post('/', async ctx => {
     const data = ctx.request.body
-    if (!data.content) {
-        ctx.throw(400, 'content is required.')
+    if (typeof data.content === 'string') {
+        const todoInfo = await controller.create(data)
+        ctx.body = todoInfo
+    } else {
+        ctx.throw(400, 'content should be string.')
     }
-    const todoInfo = await controller.create(data)
-    ctx.body = todoInfo
 })
 
 module.exports = router

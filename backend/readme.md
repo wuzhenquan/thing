@@ -47,3 +47,8 @@ soultion：
    8. paste in the following code into vim, then `:wq!`
    9. close current git bash applicatio
    10. re-launch git bash and type `mongo --version`, you can see the MongoDB version info.
+
+### all
+
+auto reload: [nodemon](https://nodemon.io)
+
