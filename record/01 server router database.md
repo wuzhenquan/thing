@@ -11,12 +11,13 @@ app.use(async ctx => {
 })
 start = async () => {
     try {
-        await app.listen(3000)
+        await app.listen(3001)
     } catch (error) {
         console.log('Something went wrong')
     }
 } 
 start()
+// 重点：（new Koa()).use(ctx => ctx.body).listen(3001)
 ```
 
 ### 添加路由
@@ -29,17 +30,18 @@ const router = new Router()
 const Koa = require('koa')
 
 const userRouter = new Router()
-userRouter.get('/user', async ctx => {
+userRouter.get('/', async ctx => {
     ctx.body = {}
 })
 
-router.use(()=>{
+router.use(() => {
     // 这里可以用来验证是否登录
     // 注意这里一定要 return next() 或者 return ctx.redirect('back') 或其他的 return 操作
 }).use('./users', usersRouter.routes())
 
 // app/index.js
 (new Koa()).use(router.routes()).use(router.allowedMethods());
+// 重点：(new Router()).get('/users', ctx => ctx.body={})
 ```
 
 ### 添加数据库
@@ -61,9 +63,10 @@ connect = () => {
     })
 }
 connect()
-// 创建 model
-const UserSchema = new Schema({ username: {type: String} })
-const User = mongoose.model('User', UserSchema)
+// define a schema
+const UserSchema = new Schema({ username: {type: String} }) // 定义结构
+// compile the schema into a Model
+const User = mongoose.model('User', UserSchema)// 定义名称
 // 操作 model 的函数
 const read = async () => { return User.find() }
 const create = ({ data = {} } = {}) => { return User.create(data) }

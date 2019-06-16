@@ -17,3 +17,6 @@
 17. front-end: [add workbench routes](https://github.com/wuzhenquan/thing/commit/cae33dcc74eb2c3a38f6efff4f8fd0d8e2f1762e)
 18. frontend: [share scss variables with JavaScript](https://github.com/wuzhenquan/thing/commit/e7510d358b3a9efd50c9abeb02bfca52e317ce6b)
 19. frontend: [align SVG icons to text](https://github.com/wuzhenquan/thing/commit/18f10a10f5033b00a0e234f53168e40ec8af3446)
+20. frontend: [context API with HOC](https://github.com/wuzhenquan/thing/commit/7c5f783f4402c154edfb5ebf1986680a6983f0ed)
+21. frontend: [use context api to create my own store](https://github.com/wuzhenquan/thing/commit/9d5c60daf16df2c6e583c40793b36cce428c0329)
+22. 
