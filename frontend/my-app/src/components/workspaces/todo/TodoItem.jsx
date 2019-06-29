@@ -50,7 +50,7 @@ export default class TodoItem extends Component {
                     ref={ this.textareaRef }
                     value={ this.state.content }
                     onChange={ (e) => { this.setState({ content: e.target.value }) } }
-                    onBlur={ () => { editTodo(info, index) } }
+                    onBlur={ (e) => { editTodo(info, index, e.target.value) } }
                 ></textarea>
                 <span className={ focusing ? 'hide' : '' }>{ this.state.content }</span>
             </div>

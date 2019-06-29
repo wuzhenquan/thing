@@ -11,13 +11,8 @@ function get(params) {
         method: 'GET',
         ...config.init
     })
-        .then(res => {
-            return res.json()
-        })
-        .catch(error => {
-            console.error(error)
-            return {}
-        })
+        .then(res => res.json())
+        .catch(error => error)
 }
 
 function post(params) {
@@ -31,7 +26,21 @@ function post(params) {
         body: JSON.stringify(data)
     })
         .then(res => res.json())
-        .catch(error => ({}))
+        .catch(error => error)
+}
+
+function put(params) {
+    const a = params.a
+    const data = params.data || {}
+    return fetch(`${config.baseUrl}/${a}`, {
+        method: 'PUT',
+        ...config.init,
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .catch(error => error)
 }
 
 export function auth() {
@@ -60,4 +69,8 @@ export function getTodos() {
 
 export function addTodo(data) {
     return post({ a: 'todos', data })
+}
+
+export function updateTodo(data) {
+    return put({ a: 'todos', data })
 }

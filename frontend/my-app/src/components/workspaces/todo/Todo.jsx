@@ -28,9 +28,9 @@ class Todo extends Component {
             })
     }
 
-    editTodo = (info, index) => {
+    editTodo = (info, index, contentValue) => {
         const { editTodo } = this.props.todoContext
-        editTodo(info, index).then(() => this.changeFocusId(0))
+        editTodo(info, index, contentValue).then(() => this.changeFocusId(0))
     }
 
     changeFocusId = todoId => {

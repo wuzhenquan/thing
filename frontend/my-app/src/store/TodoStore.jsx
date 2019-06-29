@@ -10,29 +10,26 @@ class TodoStore extends Component {
 
     getTodos = () => {
         return api.getTodos().then(todosData => {
-            this.setState({ todosData })
+            Array.isArray(todosData) && this.setState({ todosData })
         })
     }
 
     addTodo = () => {
-        const todosData = this.state.todosData
-        const order = todosData.length + 1
-        const id = order
         const content = ''
         this.setState(state => {
-            const todosData = [{ id, content, order }].concat(state.todosData)
+            const todosData = [{ content }].concat(state.todosData)
             return { todosData }
         })
-        return api.addTodo({ id, content, order }).then(() => id)
+        return api.addTodo({ content })
     }
 
-    editTodo = (info, index) => {
+    editTodo = (info, index, contentValue) => {
         this.setState(state => {
             let todosData = state.todosData
             todosData[index] = info
             return { todosData }
         })
-        return new Promise(resolve => resolve())
+        return api.updateTodo({id: info.id, content: contentValue})
     }
 
     render() {
