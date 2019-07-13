@@ -40,19 +40,21 @@ export default class TodoItem extends Component {
     render() {
         const { index, info, changeFocusId, focusing, editTodo } = this.props
         return (
-            <div data-id={ info.id } onClick={ () => { changeFocusId(info.id) } }>
+            <div className="todo-item" onClick={ () => { changeFocusId(info.id) } }>
                 <span className="pointer" onClick={ () => { } }>
-                    <Icon name='radioBoxBlank' />
+                    <Icon name='radioBoxBlank'/>
                 </span>
-                <textarea
+                <input
                     rows="1"
-                    className={ focusing ? '' : 'hide' }
                     ref={ this.textareaRef }
                     value={ this.state.content }
                     onChange={ (e) => { this.setState({ content: e.target.value }) } }
                     onBlur={ (e) => { editTodo(info, index, e.target.value) } }
-                ></textarea>
-                <span className={ focusing ? 'hide' : '' }>{ this.state.content }</span>
+                />
+                {/* <span className={ focusing ? 'hide' : '' }>{ this.state.content }</span> */}
+                <span className="pointer buttons-right" onClick={ () => { } }>
+                    <Icon name='delete'/>
+                </span>
             </div>
         )
     }

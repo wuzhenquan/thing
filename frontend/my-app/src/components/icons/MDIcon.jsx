@@ -15,6 +15,7 @@ function MDIcon({ name, size = '1em', color = 'primary' }) {
         case 'alert': path = mdIcons.mdiAlert; break;
         case 'plus': path = mdIcons.mdiPlus; break;
         case 'radioBoxBlank': path = mdIcons.mdiRadioboxBlank; break;
+        case 'delete': path=mdIcons.mdiDeleteOutline;break
         default: break;
     }
     return (

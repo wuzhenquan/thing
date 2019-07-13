@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
+import './todo.scss'
 
 class Todo extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class Todo extends Component {
         const { todoContext } = this.props
         const { todosData } = todoContext
         return (
-            <div>
+            <div className="todo-content">
                 <span className="pointer" onClick={this.addTodo}>
                     <Icon name="plus" />
                     Add todo
