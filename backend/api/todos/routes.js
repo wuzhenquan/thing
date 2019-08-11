@@ -27,11 +27,17 @@ router.put('/', async ctx => {
         const filter = { _id: id }
         const todoInfo = await controller.updateOne(filter, doc)
         ctx.body = todoInfo
-    } else if(!data.id){
+    } else if (!data.id) {
         ctx.throw(400, 'id is required.')
-    }else {
+    } else {
         ctx.throw(400, 'content should be string.')
     }
+})
+// delete todo data item
+router.delete('/:id', async ctx => {
+    const id = ctx.params.id
+    const info = await controller.deleteOne(id)
+    ctx.body = info
 })
 
 module.exports = router
