@@ -5,5 +5,6 @@ export default React.createContext({
     todosData: [],
     getTodos: () => {},
     addTodo: () => {},
-    editTodo: () => {}
+    editTodo: () => {},
+    deleteTodo: () => {}
 })

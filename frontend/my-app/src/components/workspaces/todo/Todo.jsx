@@ -34,6 +34,11 @@ class Todo extends Component {
         editTodo(info, index, contentValue).then(() => this.changeFocusId(0))
     }
 
+    deleteTodo = (id, index) => {
+        const { deleteTodo } = this.props.todoContext
+        deleteTodo(id, index)
+    }
+
     changeFocusId = todoId => {
         this.setState({ focusTodoId: todoId || 0 })
     }
@@ -56,9 +61,7 @@ class Todo extends Component {
                 {todosData.map((item, index) => {
                     const todoId = item.id
                     const focusing = todoId === this.state.focusTodoId
-                    const textareaRef = focusing
-                        ? this.textareaRef
-                        : Object.create(null)
+                    const textareaRef = focusing ? this.textareaRef : Object.create(null)
                     return (
                         <TodoItem
                             key={todoId}
@@ -69,6 +72,7 @@ class Todo extends Component {
                             focusing={focusing}
                             textareaRef={textareaRef}
                             editTodo={this.editTodo}
+                            deleteTodo={this.deleteTodo}
                         />
                     )
                 })}

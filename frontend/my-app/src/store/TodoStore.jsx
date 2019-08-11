@@ -29,7 +29,16 @@ class TodoStore extends Component {
             todosData[index] = info
             return { todosData }
         })
-        return api.updateTodo({id: info.id, content: contentValue})
+        return api.updateTodo({ id: info.id, content: contentValue })
+    }
+
+    deleteTodo = (id, index) => {
+        this.setState(state => {
+            let todosData = state.todosData
+            todosData.splice(index, 1)
+            return todosData
+        })
+        return api.deleteTodo(id)
     }
 
     render() {
@@ -39,7 +48,8 @@ class TodoStore extends Component {
                     todosData: this.state.todosData,
                     getTodos: this.getTodos,
                     addTodo: this.addTodo,
-                    editTodo: this.editTodo
+                    editTodo: this.editTodo,
+                    deleteTodo: this.deleteTodo
                 }}
             >
                 {this.props.children}

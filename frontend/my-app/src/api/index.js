@@ -1,8 +1,5 @@
 const config = {
-    baseUrl:
-        process.env.NODE_ENV === 'production'
-            ? 'http://119.29.102.27:3001'
-            : '',
+    baseUrl: process.env.NODE_ENV === 'production' ? 'http://119.29.102.27:3001' : '',
     init: { credentials: 'include' }
 }
 
@@ -43,6 +40,17 @@ function put(params) {
         .catch(error => error)
 }
 
+function deleteReq(params) {
+    const a = params.a
+    const data = params.data || {}
+    return fetch(`${config.baseUrl}/${a}`, {
+        method: 'DELETE',
+        ...config.init
+    })
+        .then(res => res.json())
+        .catch(error => error)
+}
+
 export function auth() {
     return get({ a: 'users/auth' })
 }
@@ -73,4 +81,7 @@ export function addTodo(data) {
 
 export function updateTodo(data) {
     return put({ a: 'todos', data })
+}
+export function deleteTodo(id) {
+    return deleteReq({ a: `todos/${id}` })
 }

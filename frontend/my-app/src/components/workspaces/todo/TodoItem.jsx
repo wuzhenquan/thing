@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../../icons/Icon'
+import { deleteTodo } from '../../../api'
 
 export default class TodoItem extends Component {
     static propTypes = {
@@ -17,7 +18,7 @@ export default class TodoItem extends Component {
         this.state = {
             content: props.info.content
         }
-        this.textareaRef = React.createRef();
+        this.textareaRef = React.createRef()
     }
 
     componentDidMount() {
@@ -38,22 +39,36 @@ export default class TodoItem extends Component {
     }
 
     render() {
-        const { index, info, changeFocusId, focusing, editTodo } = this.props
+        const { index, info, changeFocusId, editTodo, deleteTodo } = this.props
         return (
-            <div className="todo-item" onClick={ () => { changeFocusId(info.id) } }>
-                <span className="pointer" onClick={ () => { } }>
-                    <Icon name='radioBoxBlank'/>
+            <div
+                className="todo-item"
+                onClick={() => {
+                    changeFocusId(info.id)
+                }}
+            >
+                <span className="pointer" onClick={() => {}}>
+                    <Icon name="radioBoxBlank" />
                 </span>
                 <input
                     rows="1"
-                    ref={ this.textareaRef }
-                    value={ this.state.content }
-                    onChange={ (e) => { this.setState({ content: e.target.value }) } }
-                    onBlur={ (e) => { editTodo(info, index, e.target.value) } }
+                    ref={this.textareaRef}
+                    value={this.state.content}
+                    onChange={e => {
+                        this.setState({ content: e.target.value })
+                    }}
+                    onBlur={e => {
+                        editTodo(info, index, e.target.value)
+                    }}
                 />
                 {/* <span className={ focusing ? 'hide' : '' }>{ this.state.content }</span> */}
-                <span className="pointer buttons-right" onClick={ () => { } }>
-                    <Icon name='delete'/>
+                <span
+                    className="pointer buttons-right"
+                    onClick={() => {
+                        deleteTodo(info.id, index)
+                    }}
+                >
+                    <Icon name="delete" />
                 </span>
             </div>
         )
