@@ -14,13 +14,14 @@ class TodoStore extends Component {
         })
     }
 
-    addTodo = () => {
+    addTodo = async () => {
         const content = ''
+        const todoInfo = await api.addTodo({ content })
         this.setState(state => {
-            const todosData = [{ content }].concat(state.todosData)
+            const todosData = [todoInfo].concat(state.todosData)
             return { todosData }
         })
-        return api.addTodo({ content })
+        return todoInfo
     }
 
     editTodo = (info, index, contentValue) => {
