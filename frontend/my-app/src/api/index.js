@@ -42,7 +42,6 @@ function put(params) {
 
 function deleteReq(params) {
     const a = params.a
-    const data = params.data || {}
     return fetch(`${config.baseUrl}/${a}`, {
         method: 'DELETE',
         ...config.init
