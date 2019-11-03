@@ -24,7 +24,7 @@ app.use(bodyparser())
 app.use(router.routes())
 app.use(ctx => {
     ctx.type = 'json'
-    ctx.body = { text: 'nodejs back end app started' }
+    ctx.body = { text: `nodejs back end app started | ${process.env.NODE_ENV} environment` }
 })
 
 exports.start = async () => {
