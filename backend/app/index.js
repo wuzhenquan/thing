@@ -17,14 +17,14 @@ const sessionCONFIG = {
 }
 
 const app = new Koa()
-app.keys = ['some secret key']; // encrypt cookie (required for signed cookies)
+app.keys = ['some secret key'] // encrypt cookie (required for signed cookies)
 app.use(cors({ origin: 'http://119.29.102.27:5000', credentials: true })) // response.setHeader({Access-Control-Allow-Origin: 'http://119.29.102.27:5000', Access-Control-Allow-Credentials: true})
 app.use(session(sessionCONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())
 app.use(ctx => {
     ctx.type = 'json'
-    ctx.body = { text: 'nodejs back end app started'}
+    ctx.body = { text: 'nodejs back end app started' }
 })
 
 exports.start = async () => {
