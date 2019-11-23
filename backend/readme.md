@@ -2,7 +2,9 @@
 
 ### macOS
 
-install MongoDB with homebrew
+#### install MongoDB
+
+ with homebrew
 
 1. `brew update`
 
@@ -48,7 +50,7 @@ soultion：
    9. close current git bash applicatio
    10. re-launch git bash and type `mongo --version`, you can see the MongoDB version info.
 
-### all
+### utilities
 
 auto reload: [nodemon](https://nodemon.io)
 
