@@ -1,5 +1,5 @@
-import React, { Component } from '../../../node_modules/react'
-import { Link } from '../../../node_modules/react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import UserDropDown from '../user/UserDropDown'
 import UserContext from '../../context/UserContext'

@@ -1,7 +1,7 @@
-import React, { Component } from '../../../node_modules/react'
-import PropTypes from '../../../node_modules/prop-types'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import * as api from '../../api'
-import { withRouter } from "../../../node_modules/react-router-dom"
+import { withRouter } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
 
 class BtnSignOut extends Component {

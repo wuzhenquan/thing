@@ -1,4 +1,4 @@
-import React, { Component } from '../../../node_modules/react'
+import React, { Component } from 'react'
 import Icon from '../icons/Icon'
 import BtnSignOut from '../sign/BtnSignOut'
 
