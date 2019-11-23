@@ -1,7 +1,7 @@
-import React from 'react'
-import Icon from '@mdi/react'
-import * as mdIcons from '@mdi/js'
-import myStyles from '../../../src/mystyles.scss'
+import React from '../../../node_modules/react'
+import Icon from '../../../node_modules/@mdi/react/dist/Icon'
+import * as mdIcons from '../../../node_modules/@mdi/js/mdi'
+import myStyles from '../../mystyles.scss'
 import './MDIcon.scss'
 
 function MDIcon({ name, size = '1em', color = 'primary' }) {
