@@ -9,7 +9,7 @@ const db = config.get('MONGO_DATABASE_NAME')
 exports.connect = () => {
     return new Promise((resolve, reject) => {
         mongoose.connect(`${url}/${db}`, {
-            userMongoClient: true
+            useNewUrlParser: true
         })
 
         const connection = mongoose.connection
