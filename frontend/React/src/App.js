@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import './App.scss'
-import * as api from './api'
-import Routes from './components/routes/Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './components/routes/Routes'
 import UserContext from './context/UserContext'
 import TodoStore from './store/TodoStore'
+import './App.scss'
+import * as api from './api'
 
 
 class App extends Component {

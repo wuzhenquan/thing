@@ -10,10 +10,11 @@ const sessionCONFIG = {
     key: 'koa:sess', // (string) cookie key (default is koa:sess)
     maxAge: 86400000, // 1 days
     overwrite: true, // can overwrite session or not
-    httpOnly: true, // set-cookie: httponly
     signed: true, // have sign cookie or not
     rolling: false,
-    store: new SessionStore()
+    store: new SessionStore(),
+    // we can put some cookie settings in this config (find source code from koa-session)
+    httpOnly: true, // set-cookie: httponly
 }
 
 const app = new Koa()

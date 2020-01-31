@@ -41,9 +41,10 @@ class MongooseStore {
         return data;
     }
 
-    static create(opts) {
-        return new MongooseStore(opts);
-    }
+    // ？？？ this codes in doubt, 'new' has be execute in app.index.js
+    // static create(opts) {
+    //     return new MongooseStore(opts);
+    // }
 }
 
 module.exports = MongooseStore;
