@@ -5,6 +5,7 @@ const database = require('../database')
 const SessionStore = require('./sessionStore')
 const session = require('koa-session')
 const cors = require('@koa/cors')
+const config = require('../config')
 
 const sessionCONFIG = {
     key: 'koa:sess', // (string) cookie key (default is koa:sess)
@@ -19,7 +20,7 @@ const sessionCONFIG = {
 
 const app = new Koa()
 app.keys = ['some secret key'] // encrypt cookie (required for signed cookies)
-app.use(cors({ origin: 'http://119.29.102.27:5000', credentials: true })) // response.setHeader({Access-Control-Allow-Origin: 'http://119.29.102.27:5000', Access-Control-Allow-Credentials: true})
+app.use(cors({ origin: config.frontendOrigin, credentials: true })) // response.setHeader({Access-Control-Allow-Origin: config.frontendOrigin, Access-Control-Allow-Credentials: true})
 app.use(session(sessionCONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())
