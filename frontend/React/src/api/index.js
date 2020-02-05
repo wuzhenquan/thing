@@ -1,5 +1,5 @@
 const config = {
-    baseUrl: process.env.NODE_ENV === 'production' ? 'http://119.29.102.27:3001' : '',
+    baseUrl: process.env.REACT_APP_API_URL,
     init: { credentials: 'include' }
 }
 
