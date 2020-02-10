@@ -1,21 +1,21 @@
-@import "../../mystyles.scss";
+@import '../../mystyles.scss';
 
 .is-sidebar-menu {
-    padding: 2.5rem;
+  padding: 2.5rem;
 }
 
 .columns {
-    &.is-fullheight {
-        min-height: calc(100vh - ( #{$navbar-height} - .75rem));
-        max-height: calc(100vh - ( #{$navbar-height} - .75rem));
-        height: calc(100vh - ( #{$navbar-height} - .75rem));
-        display: flex;
-        flex-direction: row;
-        justify-content: stretch;
-        .column {
-            overflow-y: auto;
-        }
+  &.is-fullheight {
+    min-height: calc(100vh - (#{$navbar-height} - 0.75rem));
+    max-height: calc(100vh - (#{$navbar-height} - 0.75rem));
+    height: calc(100vh - (#{$navbar-height} - 0.75rem));
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    .column {
+      overflow-y: auto;
     }
+  }
 }
 
 // from https://codepen.io/wikiki/pen/OjdNKM

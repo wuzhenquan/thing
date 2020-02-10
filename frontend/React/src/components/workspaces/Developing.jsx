@@ -7,10 +7,6 @@ export default class Developing extends Component {
   }
 
   render() {
-    return (
-      <div>
-          developing...
-      </div>
-    )
+    return <div>developing...</div>
   }
 }

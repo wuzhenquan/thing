@@ -1,14 +1,14 @@
-@import "../../mystyles.scss";
+@import '../../mystyles.scss';
 
 .menu {
-    a {
-        color: $inactiveColor;
-    }
+  a {
+    color: $inactiveColor;
+  }
 }
 
 .menu-label {
-    &.active {
-        color: $primary;
-    }
-    text-align: center
+  &.active {
+    color: $primary;
+  }
+  text-align: center;
 }
