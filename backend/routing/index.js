@@ -2,12 +2,13 @@ const Router = require('koa-router')
 const router = new Router()
 const usersRouter = require('../api/users/routes')
 const todosRouter = require('../api/todos/routes')
+const publicKeyRouter = require('../api/publicKey')
 
 router
   .use((ctx, next) => {
     const requestToken = ctx.cookies.get('token') // token from client
     const sessionToken = ctx.session.token // token in session
-    if (['/users/signin', '/users/signup', '/users/auth'].includes(ctx.request.url)) {
+    if (['/publickey', '/users/signin', '/users/signup', '/users/auth'].includes(ctx.request.url)) {
       return next()
     }
     if (requestToken && sessionToken && requestToken === sessionToken) {
@@ -17,6 +18,7 @@ router
       return ctx.redirect('back')
     }
   })
+  .use('/publickey', publicKeyRouter.routes())
   .use('/users', usersRouter.routes())
   .use('/todos', todosRouter.routes())
 
