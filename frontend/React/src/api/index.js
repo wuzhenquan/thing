@@ -50,6 +50,10 @@ function deleteReq(params) {
     .catch(error => error)
 }
 
+export function getPublicKey() {
+  return get({ a: 'publickey' })
+}
+
 export function auth() {
   return get({ a: 'users/auth' })
 }

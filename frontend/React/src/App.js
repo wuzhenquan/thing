@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './components/routes/Routes'
+import CommonContext from './context/common/CommonContext'
 import UserContext from './context/UserContext'
 import TodoStore from './store/TodoStore'
 import './App.scss'
@@ -11,12 +12,21 @@ class App extends Component {
     super(props)
     this.state = {
       loading: true,
+      publicKey: '',
       userInfo: {}
     }
   }
 
   componentDidMount() {
+    this.getPublicKey()
     this.authenticate()
+  }
+
+  getPublicKey() {
+    api.getPublicKey().then(data => {
+      const { publicKey } = data
+      this.setState({ publicKey })
+    })
   }
 
   authenticate = (user = {}) => {
@@ -39,14 +49,20 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <UserContext.Provider
+        <CommonContext.Provider
           value={{
-            ...this.state.userInfo,
-            authenticate: this.authenticate
+            publicKey: this.state.publicKey
           }}
         >
-          <TodoStore>{this.state.loading ? 'loading' : <Routes />}</TodoStore>
-        </UserContext.Provider>
+          <UserContext.Provider
+            value={{
+              ...this.state.userInfo,
+              authenticate: this.authenticate
+            }}
+          >
+            <TodoStore>{this.state.loading ? 'loading' : <Routes />}</TodoStore>
+          </UserContext.Provider>
+        </CommonContext.Provider>
       </Router>
     )
   }

@@ -3,6 +3,8 @@ import * as api from '../../api'
 import Icon from '../icons/Icon'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { JSEncrypt } from 'jsencrypt'
+import WithCommonContext from '../../context/common/WithCommonContext'
 import UserContext from '../../context/UserContext'
 
 class SignUp extends Component {
@@ -20,12 +22,21 @@ class SignUp extends Component {
   }
 
   submit(authenticate, e) {
+    const {
+      commonContext: { publicKey }
+    } = this.props
     e && e.preventDefault() // stop the page trying to load the action url.
     const { history } = this.props
     if (!this.state.name) return console.error('请输入名字')
     else if (!this.state.password) return console.error('请输入密码')
+    let encryptor = new JSEncrypt() //实例化
+    encryptor.setPublicKey(publicKey) //设置公钥
     api
-      .signUp({ name: this.state.name, email: this.state.email, password: this.state.password })
+      .signUp({
+        name: this.state.name,
+        email: this.state.email,
+        password: encryptor.encrypt(this.state.password)
+      })
       .then(user => authenticate(user))
       .then(() => {
         history.push('/workbench/todo')
@@ -125,4 +136,4 @@ class SignUp extends Component {
   }
 }
 
-export default withRouter(SignUp)
+export default withRouter(WithCommonContext(SignUp))
