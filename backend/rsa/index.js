@@ -9,8 +9,6 @@ function generatorRsa() {
   var publicPem = key.exportKey('pkcs8-public-pem')
 
   fs.writeFile('./rsa/pem/public.pem', publicPem, err => {
-    console.log(err,'err');
-    
     if (err) throw err
     console.log('公钥已保存！')
   })
