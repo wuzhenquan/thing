@@ -44,6 +44,19 @@ router.use(() => {
 // 重点：(new Router()).get('/users', ctx => ctx.body={})
 ```
 
+### 运行数据库
+
+mongdb 升级到 4.2.2 到后
+
+macOS:
+
+按 [run mongodb](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/#run-mongodb-community-edition) 即可
+
+```shell
+brew services start mongodb-community@4.2
+mongo
+```
+
 ### 添加数据库
 
 ```js

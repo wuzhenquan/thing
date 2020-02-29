@@ -19,4 +19,7 @@
 19. frontend: [align SVG icons to text](https://github.com/wuzhenquan/thing/commit/18f10a10f5033b00a0e234f53168e40ec8af3446)
 20. frontend: [context API with HOC](https://github.com/wuzhenquan/thing/commit/7c5f783f4402c154edfb5ebf1986680a6983f0ed)
 21. frontend: [use context api to create my own store](https://github.com/wuzhenquan/thing/commit/9d5c60daf16df2c6e583c40793b36cce428c0329)
-22. 
+22. backend: [remove _id & __v after querying MongoDb](https://github.com/wuzhenquan/thing/commit/1537047075a4cc0b1c947e8e30837bf568924e5f)
+23. backend: [update totoItem compeleted](https://github.com/wuzhenquan/thing/commit/649733b224e10ce8c62314d60b88e4412dd5d2df)
+24. bakcend: [add rsa key gengrator function](https://github.com/wuzhenquan/thing/commit/eac5ba96cb0b3aa82040e2a8df4b68724cb7ecaf) 
+25. frontend: [use jsencrypt to encrypt password](https://github.com/wuzhenquan/thing/commit/1702fdafb01db20177f0ab418efca3e3e3fe8625) 
