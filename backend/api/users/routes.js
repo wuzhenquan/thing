@@ -3,6 +3,26 @@ const controller = require('./controller')
 const crypto = require('crypto')
 
 const router = new Router()
+
+const getUserSetting = (userInfo = {}) => {
+  const user = userInfo
+  const id = user._id
+  const name = user.name
+  const email = user.email
+  const password = user.password
+  const token = crypto
+    .createHash('md5')
+    .update(`${name}${password}`)
+    .digest('hex')
+  const resBody = { id, name, email }
+  return { user, token, resBody }
+}
+const setSignCtx = (ctx, setting) => {
+  const { user, token, resBody } = setting
+  ctx.cookies.set('token', token)
+  ctx.session = { user, token }
+  ctx.body = resBody
+}
 // get users data
 router.get('/', async ctx => {
   const users = await controller.read()
@@ -28,21 +48,7 @@ router.post('/signup', async ctx => {
     return ctx.redirect('back')
   }
   const userInfo = await controller.create({ data })
-
-  const token = crypto
-    .createHash('md5')
-    .update(`${userInfo.name}${userInfo.password}`)
-    .digest('hex')
-
-  ctx.session.user = userInfo
-  ctx.session.token = token
-  ctx.cookies.set('token', token)
-
-  ctx.body = {
-    id: userInfo._id,
-    name: userInfo.name,
-    email: userInfo.email
-  }
+  setSignCtx(ctx, getUserSetting(userInfo))
 })
 
 router.post('/signin', async ctx => {
@@ -58,20 +64,7 @@ router.post('/signin', async ctx => {
     ctx.throw(401, 'The password is incorrect.')
     return ctx.redirect('back')
   }
-
-  const token = crypto
-    .createHash('md5')
-    .update(`${userInfo.name}${userInfo.password}`)
-    .digest('hex')
-
-  ctx.session.user = userInfo
-  ctx.session.token = token
-  ctx.cookies.set('token', token)
-  ctx.body = {
-    id: userInfo._id,
-    name: userInfo.name,
-    email: userInfo.email
-  }
+  setSignCtx(ctx, getUserSetting(userInfo))
 })
 
 router.post('/signout', async ctx => {
