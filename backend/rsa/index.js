@@ -8,11 +8,11 @@ function generatorRsa() {
   var privatePem = key.exportKey('pkcs1-private-pem')
   var publicPem = key.exportKey('pkcs8-public-pem')
 
-  fs.writeFile('./rsa/pem/public.pem', publicPem, err => {
+  fs.writeFile('./rsa/public.pem', publicPem, err => {
     if (err) throw err
     console.log('公钥已保存！')
   })
-  fs.writeFile('./rsa/pem/private.pem', privatePem, err => {
+  fs.writeFile('./rsa/private.pem', privatePem, err => {
     if (err) throw err
     console.log('私钥已保存！')
   })
