@@ -1,27 +1,44 @@
 const Router = require('koa-router')
 const controller = require('./controller')
 const crypto = require('crypto')
+const fs = require('fs')
 
 const router = new Router()
 
-const getUserSetting = (userInfo = {}) => {
-  const user = userInfo
-  const id = user._id
-  const name = user.name
-  const email = user.email
-  const password = user.password
+// decrypt by private key
+const decryptPassword = encryptedPassword => {
+  const privateKey = fs.readFileSync(`${__dirname}/../../rsa/private.pem`, 'utf8')
+  const buffer = Buffer.from(encryptedPassword, 'base64') //转化格式
+  const password = crypto
+    .privateDecrypt(
+      {
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      },
+      buffer
+    )
+    .toString('utf8')
+  return password
+}
+
+const getToken = (userInfo = {}) => {
+  const name = userInfo.name
+  const password = decryptPassword(userInfo.password)
   const token = crypto
     .createHash('md5')
     .update(`${name}${password}`)
     .digest('hex')
-  const resBody = { id, name, email }
-  return { user, token, resBody }
+  return token
 }
-const setSignCtx = (ctx, setting) => {
-  const { user, token, resBody } = setting
+
+// update response ctx
+const setSignInOrSignOutCtx = (ctx, userInfo) => {
+  const { id, name, email } = userInfo
+  const token = getToken(userInfo)
+
   ctx.cookies.set('token', token)
-  ctx.session = { user, token }
-  ctx.body = resBody
+  ctx.session = { user: userInfo, token }
+  ctx.body = { id, name, email }
 }
 // get users data
 router.get('/', async ctx => {
@@ -48,7 +65,7 @@ router.post('/signup', async ctx => {
     return ctx.redirect('back')
   }
   const userInfo = await controller.create({ data })
-  setSignCtx(ctx, getUserSetting(userInfo))
+  setSignInOrSignOutCtx(ctx, userInfo)
 })
 
 router.post('/signin', async ctx => {
@@ -64,7 +81,7 @@ router.post('/signin', async ctx => {
     ctx.throw(401, 'The password is incorrect.')
     return ctx.redirect('back')
   }
-  setSignCtx(ctx, getUserSetting(userInfo))
+  setSignInOrSignOutCtx(ctx, userInfo)
 })
 
 router.post('/signout', async ctx => {
