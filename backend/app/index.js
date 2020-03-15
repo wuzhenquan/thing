@@ -6,10 +6,10 @@ const SessionStore = require('./sessionStore')
 const session = require('koa-session')
 const cors = require('@koa/cors')
 const config = require('../config')
-const generatorRsa = require('../rsa')
-generatorRsa()
+const generateRsa = require('./rsa/generateRsa')
+generateRsa()
 const sessionCONFIG = {
-  key: 'koa:sess', // (string) cookie key (default is koa:sess)
+  key: 'sessionId', // (string) cookie key (default is koa:sess)
   maxAge: 86400000, // 1 days
   overwrite: true, // can overwrite session or not
   signed: true, // have sign cookie or not

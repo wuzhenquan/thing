@@ -3,7 +3,7 @@ const router = new Router()
 const fs = require('fs')
 
 router.get('/', ctx => {
-  const publicKey = fs.readFileSync(`${__dirname}/../rsa/public.pem`, 'utf-8')
+  const publicKey = fs.readFileSync(`${process.cwd()}/app/rsa/public.pem`, 'utf-8')
   ctx.body = { publicKey }
 })
 

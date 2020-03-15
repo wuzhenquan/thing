@@ -7,7 +7,11 @@ const router = new Router()
 
 // decrypt by private key
 const decryptPassword = encryptedPassword => {
-  const privateKey = fs.readFileSync(`${__dirname}/../../rsa/private.pem`, 'utf8')
+
+  const privateKey = fs.readFileSync(`${process.cwd()}/app/rsa/private.pem`, 'utf8')
+  console.log(privateKey,'privateKey');
+  console.log(encryptedPassword,'encryptedPassword');
+  
   const buffer = Buffer.from(encryptedPassword, 'base64') //转化格式
   const password = crypto
     .privateDecrypt(
@@ -21,23 +25,10 @@ const decryptPassword = encryptedPassword => {
   return password
 }
 
-const getToken = (userInfo = {}) => {
-  const name = userInfo.name
-  const password = decryptPassword(userInfo.password)
-  const token = crypto
-    .createHash('md5')
-    .update(`${name}${password}`)
-    .digest('hex')
-  return token
-}
-
 // update response ctx
 const setSignInOrSignOutCtx = (ctx, userInfo) => {
   const { id, name, email } = userInfo
-  const token = getToken(userInfo)
-
-  ctx.cookies.set('token', token)
-  ctx.session = { user: userInfo, token }
+  ctx.session.id = id
   ctx.body = { id, name, email }
 }
 // get users data
@@ -48,36 +39,50 @@ router.get('/', async ctx => {
 
 // authenticate
 router.get('/auth', async ctx => {
-  const userInfo = (ctx.session && ctx.session.user) || {}
-  if (userInfo.name) {
-    ctx.body = { name: userInfo.name }
+  const sessionId = ctx.session && ctx.session.id
+  if (sessionId) {
+    ctx.body = { sessionId }
   } else {
     ctx.body = {}
   }
 })
 
+const getMd5password = encryptedPassword => {
+  const saltPassword = `${encryptedPassword}wzq`
+  const password = crypto
+    .createHash('md5')
+    .update(saltPassword)
+    .digest('hex')
+  return password
+}
+
 // create user data info
 router.post('/signup', async ctx => {
   const data = ctx.request.body
-  if (!data || !data.name || !data.password) {
+  if (data && data.name && data.email && data.password) {
+    const encryptedPassword = decryptPassword(data.password)
+    const md5Password = getMd5password(encryptedPassword)
+    data.password = md5Password
+    const userInfo = await controller.create({ data })
+    setSignInOrSignOutCtx(ctx, userInfo)
+  } else {
     if (!data.name) ctx.throw(401, 'name is required.')
     if (!data.password) ctx.throw(401, 'password is required.')
     return ctx.redirect('back')
   }
-  const userInfo = await controller.create({ data })
-  setSignInOrSignOutCtx(ctx, userInfo)
 })
 
 router.post('/signin', async ctx => {
   const data = ctx.request.body
+  const encryptedPassword = decryptPassword(data.password)
+  const md5Password = getMd5password(encryptedPassword)
   const userInfo = await controller.signin({ data })
-
   // validation
   if (!userInfo || userInfo.name !== data.name) {
     ctx.throw(401, 'User not found. ')
     return ctx.redirect('back')
   }
-  if (!userInfo || userInfo.password !== data.password) {
+  if (!userInfo || userInfo.password !== md5Password) {
     ctx.throw(401, 'The password is incorrect.')
     return ctx.redirect('back')
   }
@@ -85,9 +90,8 @@ router.post('/signin', async ctx => {
 })
 
 router.post('/signout', async ctx => {
-  ctx.session.user = null
-  ctx.session.token = ''
-  ctx.cookies.set('token', '')
+  ctx.session.id = ''
+  // ctx.cookies.set('token', '')
   ctx.body = {}
 })
 

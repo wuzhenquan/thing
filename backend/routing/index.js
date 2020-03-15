@@ -6,12 +6,12 @@ const publicKeyRouter = require('../api/publicKey')
 
 router
   .use((ctx, next) => {
-    const requestToken = ctx.cookies.get('token') // token from client
-    const sessionToken = ctx.session.token // token in session
+    const requestSessionId = ctx.cookies.get('sessionId') // token from client
+    const sessionId = ctx.session.id // token in session
     if (['/publickey', '/users/signin', '/users/signup', '/users/auth'].includes(ctx.request.url)) {
       return next()
     }
-    if (requestToken && sessionToken && requestToken === sessionToken) {
+    if (requestSessionId && sessionId && requestSessionId === sessionId) {
       return next()
     } else {
       ctx.throw(406, 'please signin (did not signin or signin expired)')
