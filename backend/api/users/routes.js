@@ -7,11 +7,7 @@ const router = new Router()
 
 // decrypt by private key
 const decryptPassword = encryptedPassword => {
-
   const privateKey = fs.readFileSync(`${process.cwd()}/app/rsa/private.pem`, 'utf8')
-  console.log(privateKey,'privateKey');
-  console.log(encryptedPassword,'encryptedPassword');
-  
   const buffer = Buffer.from(encryptedPassword, 'base64') //转化格式
   const password = crypto
     .privateDecrypt(
@@ -28,7 +24,8 @@ const decryptPassword = encryptedPassword => {
 // update response ctx
 const setSignInOrSignOutCtx = (ctx, userInfo) => {
   const { id, name, email } = userInfo
-  ctx.session.id = id
+  ctx.session.id = ctx.cookies.get('sessionId')
+  ctx.session.user = { id, name, email }
   ctx.body = { id, name, email }
 }
 // get users data
@@ -39,9 +36,10 @@ router.get('/', async ctx => {
 
 // authenticate
 router.get('/auth', async ctx => {
-  const sessionId = ctx.session && ctx.session.id
-  if (sessionId) {
-    ctx.body = { sessionId }
+  const userInfo = (ctx.session && ctx.session.user) || {}
+
+  if (userInfo.name) {
+    ctx.body = { name: userInfo.name }
   } else {
     ctx.body = {}
   }
@@ -91,7 +89,7 @@ router.post('/signin', async ctx => {
 
 router.post('/signout', async ctx => {
   ctx.session.id = ''
-  // ctx.cookies.set('token', '')
+  ctx.cookies.set('sessionId', '')
   ctx.body = {}
 })
 

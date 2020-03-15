@@ -8,7 +8,7 @@ router
   .use((ctx, next) => {
     const requestSessionId = ctx.cookies.get('sessionId') // token from client
     const sessionId = ctx.session.id // token in session
-    if (['/publickey', '/users/signin', '/users/signup', '/users/auth'].includes(ctx.request.url)) {
+    if (['/publickey', '/users/signin', '/users/signup'].includes(ctx.request.url)) {
       return next()
     }
     if (requestSessionId && sessionId && requestSessionId === sessionId) {
