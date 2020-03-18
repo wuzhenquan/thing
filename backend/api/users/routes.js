@@ -45,13 +45,10 @@ router.get('/auth', async ctx => {
   }
 })
 
-const getMd5password = encryptedPassword => {
-  const saltPassword = `${encryptedPassword}wzq`
-  const password = crypto
-    .createHash('md5')
-    .update(saltPassword)
-    .digest('hex')
-  return password
+const cryptPwd = encryptedPassword => {
+  const md5 = crypto.createHash('md5')
+  const result = md5.update(encryptedPassword).digest('hex')
+  return result
 }
 
 // create user data info
@@ -59,7 +56,7 @@ router.post('/signup', async ctx => {
   const data = ctx.request.body
   if (data && data.name && data.email && data.password) {
     const encryptedPassword = decryptPassword(data.password)
-    const md5Password = getMd5password(encryptedPassword)
+    const md5Password = cryptPwd(encryptedPassword)
     data.password = md5Password
     const userInfo = await controller.create({ data })
     setSignInOrSignOutCtx(ctx, userInfo)
@@ -73,7 +70,7 @@ router.post('/signup', async ctx => {
 router.post('/signin', async ctx => {
   const data = ctx.request.body
   const encryptedPassword = decryptPassword(data.password)
-  const md5Password = getMd5password(encryptedPassword)
+  const md5Password = cryptPwd(encryptedPassword)
   const userInfo = await controller.signin({ data })
   // validation
   if (!userInfo || userInfo.name !== data.name) {
