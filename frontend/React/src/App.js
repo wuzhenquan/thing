@@ -18,11 +18,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getPublicKey()
     this.authenticate()
   }
 
-  getPublicKey() {
+  getPublicKey = () => {
     api.getPublicKey().then(data => {
       const { publicKey } = data
       this.setState({ publicKey })
@@ -51,6 +50,7 @@ class App extends Component {
       <Router>
         <CommonContext.Provider
           value={{
+            getPublicKey: this.getPublicKey,
             publicKey: this.state.publicKey
           }}
         >
