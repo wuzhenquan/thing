@@ -1,7 +1,7 @@
 const User = require('./model')
 
-exports.read = async () => {
-  return User.find()
+exports.read = async (data = {}) => {
+  return User.find(data)
 }
 
 exports.create = ({ data = {} } = {}) => {

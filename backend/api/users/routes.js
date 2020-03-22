@@ -36,8 +36,7 @@ router.get('/', async ctx => {
 
 // authenticate
 router.get('/auth', async ctx => {
-  const userInfo = (ctx.session && ctx.session.user) || {}
-
+  const userInfo = (ctx.session && ctx.session.id && ctx.session.user) || {}
   if (userInfo.name) {
     ctx.body = { name: userInfo.name }
   } else {
@@ -58,8 +57,13 @@ router.post('/signup', async ctx => {
     const encryptedPassword = decryptPassword(data.password)
     const md5Password = cryptPwd(encryptedPassword)
     data.password = md5Password
-    const userInfo = await controller.create({ data })
-    setSignInOrSignOutCtx(ctx, userInfo)
+    const duplicateUsers = await controller.read({ name: data.name })
+    if (duplicateUsers.length !== 0) {
+      const userInfo = await controller.create({ data })
+      setSignInOrSignOutCtx(ctx, userInfo)
+    } else {
+      ctx.throw(401, 'The user name has been registered. ')
+    }
   } else {
     if (!data.name) ctx.throw(401, 'name is required.')
     if (!data.password) ctx.throw(401, 'password is required.')
@@ -86,6 +90,7 @@ router.post('/signin', async ctx => {
 
 router.post('/signout', async ctx => {
   ctx.session.id = ''
+  ctx.session.user = null
   ctx.cookies.set('sessionId', '')
   ctx.body = {}
 })
