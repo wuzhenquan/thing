@@ -35,7 +35,7 @@ router.get('/', async ctx => {
 })
 
 // authenticate
-router.get('/auth', async ctx => {
+router.get('/session', async ctx => {
   const userInfo = (ctx.session && ctx.session.id && ctx.session.user) || {}
   if (userInfo.name) {
     ctx.body = { name: userInfo.name }
