@@ -54,8 +54,8 @@ export function getPublicKey() {
   return get({ a: 'publickey' })
 }
 
-export function auth() {
-  return get({ a: 'users/auth' })
+export function getUserSession() {
+  return get({ a: 'users/session' })
 }
 
 export function getHomePage() {
