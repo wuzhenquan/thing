@@ -21,6 +21,13 @@ class SignUp extends Component {
     }
   }
 
+  componentDidMount() {
+    const {
+      commonContext: { getPublicKey }
+    } = this.props
+    getPublicKey()
+  }
+
   submit(authenticate, e) {
     const {
       commonContext: { publicKey }

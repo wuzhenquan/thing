@@ -20,6 +20,13 @@ class SignIn extends Component {
     }
   }
 
+  componentDidMount() {
+    const {
+      commonContext: { getPublicKey }
+    } = this.props
+    getPublicKey()
+  }
+
   async submit(authenticate, e) {
     const {
       commonContext: { publicKey }
