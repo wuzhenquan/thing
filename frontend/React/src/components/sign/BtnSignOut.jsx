@@ -2,27 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as api from '../../api'
 import { withRouter } from 'react-router-dom'
-import UserContext from '../../context/user/UserContext'
+import WithUserContext from '../../context/user/WithUserContext'
 
 function BtnSignOut(props) {
-  const { history } = props
+  const {
+    history,
+    userContext: { authenticate }
+  } = props
   return (
-    <UserContext.Consumer>
-      {({ authenticate }) => (
-        <div
-          onClick={() => {
-            api
-              .signOut()
-              .then(() => authenticate())
-              .then(() => {
-                history.push('/public')
-              })
-          }}
-        >
-          {this.props.children}
-        </div>
-      )}
-    </UserContext.Consumer>
+    <div
+      onClick={() => {
+        api
+          .signOut()
+          .then(() => authenticate())
+          .then(() => {
+            history.push('/public')
+          })
+      }}
+    >
+      {props.children}
+    </div>
   )
 }
 
@@ -31,4 +30,4 @@ BtnSignOut.propTypes = {
   history: PropTypes.object.isRequired
 }
 
-export default withRouter(BtnSignOut)
+export default withRouter(WithUserContext(BtnSignOut))
