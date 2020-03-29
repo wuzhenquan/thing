@@ -61,7 +61,7 @@ class SignIn extends Component {
             >
               <div>
                 <div className="field">
-                  <p className="control has-icons-left has-icons-right">
+                  <div className="control has-icons-left has-icons-right">
                     <input
                       className="input"
                       type="text"
@@ -77,10 +77,10 @@ class SignIn extends Component {
                     <span className="icon is-small is-right">
                       <i className="fas fa-check"></i>
                     </span>
-                  </p>
+                  </div>
                 </div>
                 <div className="field">
-                  <p className="control has-icons-left">
+                  <div className="control has-icons-left">
                     <input
                       className="input"
                       type="password"
@@ -93,7 +93,7 @@ class SignIn extends Component {
                     <span className="icon is-small is-left">
                       <Icon name="lock" size={0.9} />
                     </span>
-                  </p>
+                  </div>
                 </div>
                 <div className="field">
                   <p className="control">
