@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as api from '../../api'
 import { withRouter } from 'react-router-dom'
-import UserContext from '../../context/UserContext'
+import UserContext from '../../context/user/UserContext'
 
 class BtnSignOut extends Component {
   static propTypes = {

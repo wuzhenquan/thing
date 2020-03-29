@@ -9,7 +9,6 @@ function get(params) {
     ...config.init
   })
     .then(res => res.json())
-    .catch(error => error)
 }
 
 function post(params) {

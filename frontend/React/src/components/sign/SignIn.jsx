@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { JSEncrypt } from 'jsencrypt'
 import WithCommonContext from '../../context/common/WithCommonContext'
-import UserContext from '../../context/UserContext'
+import UserContext from '../../context/user/UserContext'
 
 class SignIn extends Component {
   static propTypes = {

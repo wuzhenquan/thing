@@ -4,7 +4,7 @@ import SignIn from '../../components/sign/SignIn'
 import SignUp from '../../components/sign/SignUp'
 import PublicHomePage from '../../components/PublicHomePage'
 import Header from '../header/Header'
-import UserContext from '../../context/UserContext'
+import UserContext from '../../context/user/UserContext'
 import WorkbenchRoutes from './WorkbenchRoutes'
 
 class Routes extends Component {

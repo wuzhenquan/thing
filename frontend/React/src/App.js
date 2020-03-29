@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './components/routes/Routes'
 import CommonContext from './context/common/CommonContext'
-import UserContext from './context/UserContext'
+import UserContext from './context/user/UserContext'
 import TodoStore from './store/TodoStore'
 import './App.scss'
 import * as api from './api'
@@ -32,16 +32,21 @@ class App extends Component {
     if (user.id) {
       this.setState({ loading: false, userInfo: user })
     } else {
-      api.getUserSession().then(user => {
-        console.info(user, 'user')
-        // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
-        // 为什么不是合起来
-        if (user.name) {
+      api
+        .getUserSession()
+        .then(user => {
+          console.info(user, 'user')
+          // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
+          // 为什么不是合起来
+          if (user.name) {
+            this.setState({ loading: false, userInfo: user })
+          } else {
+            this.setState({ loading: false, userInfo: {} })
+          }
+        })
+        .catch(() => {
           this.setState({ loading: false, userInfo: user })
-        } else {
-          this.setState({ loading: false, userInfo: {} })
-        }
-      })
+        })
     }
   }
 
@@ -56,7 +61,7 @@ class App extends Component {
         >
           <UserContext.Provider
             value={{
-              ...this.state.userInfo,
+              name: this.state.userInfo.name || '',
               authenticate: this.authenticate
             }}
           >
