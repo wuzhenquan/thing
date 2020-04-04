@@ -1,81 +1,69 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
 import './todo.scss'
 
-class Todo extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  state = {
-    focusTodoId: 0
-  }
-
-  componentDidMount() {
-    const { getTodos } = this.props.todoContext
+function Todo(props) {
+  const {
+    todoContext: { getTodos, todosData }
+  } = props
+  const [focusTodoId, setFocusTodoId] = useState(0)
+  useEffect(() => {
     getTodos()
-  }
+  })
 
-  addTodo = () => {
-    const { addTodo } = this.props.todoContext
-    // 或者用 async await ？
-    addTodo()
-      .then(id => this.changeFocusId(id))
+  const addTodo = () => {
+    props
+      .addTodo()
+      .then(id => changeFocusId(id))
       .catch(() => {
         /* error message for failed added */
       })
   }
 
-  editTodo = (info, index, contentValue) => {
-    const { editTodo } = this.props.todoContext
-    editTodo(info, index, contentValue).then(() => this.changeFocusId(0))
+  const editTodo = (info, index, contentValue) => {
+    props.editTodo(info, index, contentValue).then(() => changeFocusId(0))
   }
 
-  deleteTodo = (id, index) => {
-    const { deleteTodo } = this.props.todoContext
-    deleteTodo(id, index)
+  const deleteTodo = (id, index) => {
+    props.deleteTodo(id, index)
   }
 
-  changeFocusId = todoId => {
-    this.setState({ focusTodoId: todoId || 0 })
+  const changeFocusId = todoId => {
+    setFocusTodoId(todoId || 0)
   }
 
-  render() {
-    const { todoContext } = this.props
-    const { todosData } = todoContext
-    return (
-      <div className="todo-content">
-        <span className="pointer" onClick={this.addTodo}>
-          <Icon name="plus" />
-          Add todo
-        </span>
-        {/* not align center in this annotation https://zhuanlan.zhihu.com/p/28626505
-                <span className="pointer" onClick={ () => { } }>
-                    <Icon name='radioBoxBlank' />
-                </span>
-                <textarea />
-                <input/> */}
-        {todosData.map((item, index) => {
-          const todoId = item.id
-          const focusing = todoId === this.state.focusTodoId
-          return (
-            <TodoItem
-              key={todoId}
-              id={todoId}
-              index={index}
-              info={item}
-              changeFocusId={this.changeFocusId}
-              focusing={focusing}
-              editTodo={this.editTodo}
-              deleteTodo={this.deleteTodo}
-            />
-          )
-        })}
-      </div>
-    )
-  }
+  return (
+    <div className="todo-content">
+      <span className="pointer" onClick={addTodo}>
+        <Icon name="plus" />
+        Add todo
+      </span>
+      {/* not align center in this annotation https://zhuanlan.zhihu.com/p/28626505
+            <span className="pointer" onClick={ () => { } }>
+                <Icon name='radioBoxBlank' />
+            </span>
+            <textarea />
+            <input/> */}
+      {todosData.map((item, index) => {
+        const todoId = item.id
+        const focusing = todoId === focusTodoId
+        return (
+          <TodoItem
+            key={todoId}
+            id={todoId}
+            index={index}
+            info={item}
+            changeFocusId={changeFocusId}
+            focusing={focusing}
+            editTodo={editTodo}
+            deleteTodo={deleteTodo}
+          />
+        )
+      })}
+    </div>
+  )
 }
 
 export default WithTodoContext(Todo)
