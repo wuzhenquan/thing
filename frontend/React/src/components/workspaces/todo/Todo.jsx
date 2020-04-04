@@ -7,7 +7,6 @@ import './todo.scss'
 class Todo extends Component {
   constructor(props) {
     super(props)
-    this.textareaRef = React.createRef()
   }
 
   state = {
@@ -61,7 +60,6 @@ class Todo extends Component {
         {todosData.map((item, index) => {
           const todoId = item.id
           const focusing = todoId === this.state.focusTodoId
-          const textareaRef = focusing ? this.textareaRef : Object.create(null)
           return (
             <TodoItem
               key={todoId}
@@ -70,7 +68,6 @@ class Todo extends Component {
               info={item}
               changeFocusId={this.changeFocusId}
               focusing={focusing}
-              textareaRef={textareaRef}
               editTodo={this.editTodo}
               deleteTodo={this.deleteTodo}
             />

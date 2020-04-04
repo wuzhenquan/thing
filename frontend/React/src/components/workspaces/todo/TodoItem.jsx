@@ -8,7 +8,6 @@ export default class TodoItem extends Component {
     info: PropTypes.object.isRequired,
     changeFocusId: PropTypes.func.isRequired,
     focusing: PropTypes.bool.isRequired,
-    textareaRef: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired
   }
 
