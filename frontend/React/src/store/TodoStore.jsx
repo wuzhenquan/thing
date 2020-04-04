@@ -1,62 +1,46 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import WithTodoContext from '../context/Todo/WithTodoContext'
 import TodoContext from '../context/Todo/TodoContext'
 import * as api from '../api'
 
-class TodoStore extends Component {
-  state = {
-    todosData: []
-  }
-
-  getTodos = () => {
+function TodoStore(props) {
+  const [todosData, setTodosData] = useState([])
+  const getTodos = () => {
     return api.getTodos().then(todosData => {
-      Array.isArray(todosData) && this.setState({ todosData })
+      Array.isArray(todosData) && setTodosData(todosData)
     })
   }
 
-  addTodo = async () => {
+  const addTodo = async () => {
     const content = ''
     const todoInfo = await api.addTodo({ content })
-    this.setState(state => {
-      const todosData = [todoInfo].concat(state.todosData)
-      return { todosData }
-    })
+    setTodosData([todoInfo].concat(todosData))
     return todoInfo
   }
 
-  editTodo = (info, index, contentValue) => {
-    this.setState(state => {
-      let todosData = state.todosData
-      todosData[index] = info
-      return { todosData }
-    })
+  const editTodo = (info, editingIndex, contentValue) => {
+    setTodosData(todosData.map((todo, index) => (index === editingIndex ? info : todo)))
     return api.updateTodo({ id: info.id, content: contentValue })
   }
 
-  deleteTodo = (id, index) => {
-    this.setState(state => {
-      let todosData = state.todosData
-      todosData.splice(index, 1)
-      return todosData
-    })
+  const deleteTodo = (id, deletingIndex) => {
+    setTodosData(todosData.filter((todo, index) => index !== deletingIndex))
     return api.deleteTodo(id)
   }
 
-  render() {
-    return (
-      <TodoContext.Provider
-        value={{
-          todosData: this.state.todosData,
-          getTodos: this.getTodos,
-          addTodo: this.addTodo,
-          editTodo: this.editTodo,
-          deleteTodo: this.deleteTodo
-        }}
-      >
-        {this.props.children}
-      </TodoContext.Provider>
-    )
-  }
+  return (
+    <TodoContext.Provider
+      value={{
+        todosData,
+        getTodos,
+        addTodo,
+        editTodo,
+        deleteTodo
+      }}
+    >
+      {props.children}
+    </TodoContext.Provider>
+  )
 }
 
 export default WithTodoContext(TodoStore)
