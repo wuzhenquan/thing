@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './components/routes/Routes'
 import CommonContext from './context/common/CommonContext'
@@ -7,70 +7,63 @@ import TodoStore from './store/TodoStore'
 import './App.scss'
 import * as api from './api'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: true,
-      publicKey: '',
-      userInfo: {}
-    }
-  }
+function App() {
+  const [loading, setLoading] = useState(true)
+  const [publicKey, setPublicKey] = useState('')
+  const [userInfo, setUserInfo] = useState({})
 
-  componentDidMount() {
-    this.authenticate()
-  }
+  useEffect(() => authenticate())
 
-  getPublicKey = () => {
+  const getPublicKey = () => {
     api.getPublicKey().then(data => {
       const { publicKey } = data
-      this.setState({ publicKey })
+      setPublicKey(publicKey)
     })
   }
 
-  authenticate = (user = {}) => {
+  const authenticate = (user = {}) => {
     if (user.id) {
-      this.setState({ loading: false, userInfo: user })
+      setLoading(false)
+      setUserInfo(user)
     } else {
       api
         .getUserSession()
         .then(user => {
           console.info(user, 'user')
-          // 问题记录：为什如果在这一行添加一个 this.setState({ loading: false }) 会多 render 一次
-          // 为什么不是合起来
           if (user.name) {
-            this.setState({ loading: false, userInfo: user })
+            setLoading(false)
+            setUserInfo(user)
           } else {
-            this.setState({ loading: false, userInfo: {} })
+            setLoading(false)
+            setUserInfo({})
           }
         })
         .catch(() => {
-          this.setState({ loading: false, userInfo: user })
+          setLoading(false)
+          setUserInfo(user)
         })
     }
   }
 
-  render() {
-    return (
-      <Router>
-        <CommonContext.Provider
+  return (
+    <Router>
+      <CommonContext.Provider
+        value={{
+          getPublicKey,
+          publicKey
+        }}
+      >
+        <UserContext.Provider
           value={{
-            getPublicKey: this.getPublicKey,
-            publicKey: this.state.publicKey
+            name: userInfo.name || '',
+            authenticate: authenticate
           }}
         >
-          <UserContext.Provider
-            value={{
-              name: this.state.userInfo.name || '',
-              authenticate: this.authenticate
-            }}
-          >
-            <TodoStore>{this.state.loading ? 'loading' : <Routes />}</TodoStore>
-          </UserContext.Provider>
-        </CommonContext.Provider>
-      </Router>
-    )
-  }
+          <TodoStore>{loading ? 'loading' : <Routes />}</TodoStore>
+        </UserContext.Provider>
+      </CommonContext.Provider>
+    </Router>
+  )
 }
 
 export default App
