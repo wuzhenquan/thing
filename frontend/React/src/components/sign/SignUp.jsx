@@ -17,7 +17,7 @@ function SignUp(props) {
       commonContext: { getPublicKey }
     } = props
     getPublicKey()
-  })
+  },[])
 
   const submit = (authenticate, e) => {
     const {

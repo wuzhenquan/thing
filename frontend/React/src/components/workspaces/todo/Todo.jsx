@@ -11,7 +11,7 @@ function Todo(props) {
   const [focusTodoId, setFocusTodoId] = useState(0)
   useEffect(() => {
     getTodos()
-  })
+  },[])
 
   const addTodo = () => {
     props

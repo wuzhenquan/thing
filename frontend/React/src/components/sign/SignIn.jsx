@@ -16,7 +16,7 @@ function SignIn(props) {
       commonContext: { getPublicKey }
     } = props
     getPublicKey()
-  })
+  },[])
 
   const submit = async (authenticate, e) => {
     e && e.preventDefault() // stop the page trying to load the action url.

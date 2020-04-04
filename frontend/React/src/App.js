@@ -12,7 +12,9 @@ function App() {
   const [publicKey, setPublicKey] = useState('')
   const [userInfo, setUserInfo] = useState({})
 
-  useEffect(() => authenticate())
+  useEffect(() => {
+    authenticate()
+  }, [])
 
   const getPublicKey = () => {
     api.getPublicKey().then(data => {
