@@ -1,12 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-export default class Developing extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
-
-  render() {
-    return <div>developing...</div>
-  }
+export default function Developing() {
+  return <div>developing...</div>
 }
