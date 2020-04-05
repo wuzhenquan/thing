@@ -11,23 +11,31 @@ function Todo(props) {
   const [focusTodoId, setFocusTodoId] = useState(0)
   useEffect(() => {
     getTodos()
-  },[])
+  }, [])
 
   const addTodo = () => {
-    props
-      .addTodo()
-      .then(id => changeFocusId(id))
+    const {
+      todoContext: { addTodo }
+    } = props
+    addTodo()
+      .then(data => changeFocusId(data.id))
       .catch(() => {
         /* error message for failed added */
       })
   }
 
   const editTodo = (info, index, contentValue) => {
-    props.editTodo(info, index, contentValue).then(() => changeFocusId(0))
+    const {
+      todoContext: { editTodo }
+    } = props
+    editTodo(info, index, contentValue).then(() => changeFocusId(0))
   }
 
   const deleteTodo = (id, index) => {
-    props.deleteTodo(id, index)
+    const {
+      todoContext: { deleteTodo }
+    } = props
+    deleteTodo(id, index)
   }
 
   const changeFocusId = todoId => {

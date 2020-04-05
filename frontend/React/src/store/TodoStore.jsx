@@ -43,4 +43,4 @@ function TodoStore(props) {
   )
 }
 
-export default WithTodoContext(TodoStore)
+export default TodoStore
