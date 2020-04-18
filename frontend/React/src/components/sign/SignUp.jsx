@@ -8,16 +8,14 @@ import WithCommonContext from '../../context/common/WithCommonContext'
 import UserContext from '../../context/user/UserContext'
 
 function SignUp(props) {
+  const {
+    commonContext: { getPublicKey }
+  } = props
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  useEffect(() => {
-    const {
-      commonContext: { getPublicKey }
-    } = props
-    getPublicKey()
-  },[])
+  useEffect(getPublicKey, [])
 
   const submit = (authenticate, e) => {
     const {

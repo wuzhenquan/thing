@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
@@ -9,9 +10,7 @@ function Todo(props) {
     todoContext: { getTodos, todosData }
   } = props
   const [focusTodoId, setFocusTodoId] = useState(0)
-  useEffect(() => {
-    getTodos()
-  }, [])
+  useEffect(getTodos, [])
 
   const addTodo = () => {
     const {
@@ -72,6 +71,10 @@ function Todo(props) {
       })}
     </div>
   )
+}
+
+Todo.propTypes = {
+  todoContext: PropTypes.object.isRequired
 }
 
 export default WithTodoContext(Todo)

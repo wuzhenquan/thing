@@ -8,15 +8,13 @@ import WithCommonContext from '../../context/common/WithCommonContext'
 import UserContext from '../../context/user/UserContext'
 
 function SignIn(props) {
+  const {
+    commonContext: { getPublicKey }
+  } = props
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
-  useEffect(() => {
-    const {
-      commonContext: { getPublicKey }
-    } = props
-    getPublicKey()
-  },[])
+  useEffect(getPublicKey, [])
 
   const submit = async (authenticate, e) => {
     e && e.preventDefault() // stop the page trying to load the action url.

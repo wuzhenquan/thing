@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import WithTodoContext from '../context/Todo/WithTodoContext'
 import TodoContext from '../context/Todo/TodoContext'
 import * as api from '../api'
 
