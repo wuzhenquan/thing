@@ -1,3 +1,5 @@
+console.log(process.env.REACT_APP_API_URL,'process.env.REACT_APP_API_URL');
+
 const config = {
   baseUrl: process.env.REACT_APP_API_URL,
   init: { credentials: 'include' }
