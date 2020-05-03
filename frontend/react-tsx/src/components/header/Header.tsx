@@ -59,4 +59,6 @@ function Header(props) {
   )
 }
 
+Header.prototype
+
 export default WithUserContext(Header)

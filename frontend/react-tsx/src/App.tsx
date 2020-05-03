@@ -10,7 +10,7 @@ import * as api from './api'
 function App() {
   const [loading, setLoading] = useState(true)
   const [publicKey, setPublicKey] = useState('')
-  const [userInfo, setUserInfo] = useState({})
+  const [userInfo, setUserInfo] = useState({ id: 0, name: '' })
 
   useEffect(() => {
     authenticate()
@@ -23,7 +23,7 @@ function App() {
     })
   }
 
-  const authenticate = (user = {}) => {
+  const authenticate = (user = { id: 0, name: '' }) => {
     if (user.id) {
       setLoading(false)
       setUserInfo(user)
@@ -37,7 +37,7 @@ function App() {
             setUserInfo(user)
           } else {
             setLoading(false)
-            setUserInfo({})
+            setUserInfo({ id: 0, name: '' })
           }
         })
         .catch(() => {

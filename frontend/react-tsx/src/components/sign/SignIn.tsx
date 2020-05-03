@@ -7,7 +7,19 @@ import { JSEncrypt } from 'jsencrypt'
 import WithCommonContext from '../../context/common/WithCommonContext'
 import UserContext from '../../context/user/UserContext'
 
-function SignIn(props) {
+interface SignInProps {
+  history: { push: (url: string) => void }
+  commonContext: {
+    publicKey: string
+    getPublicKey: () => void
+  }
+}
+
+interface handleEvent {
+  preventDefault: () => void
+}
+
+const SignIn: React.FC<SignInProps> = props => {
   const {
     commonContext: { getPublicKey }
   } = props
@@ -16,7 +28,7 @@ function SignIn(props) {
 
   useEffect(getPublicKey, [])
 
-  const submit = async (authenticate, e) => {
+  const submit = async (authenticate: (user: object) => void, e: handleEvent) => {
     e && e.preventDefault() // stop the page trying to load the action url.
     const {
       commonContext: { publicKey },
@@ -53,7 +65,7 @@ function SignIn(props) {
                     required
                   />
                   <span className="icon is-small is-left">
-                    <Icon name="account" size={0.9} />
+                    <Icon name="account" size="0.9" />
                   </span>
                   <span className="icon is-small is-right">
                     <i className="fas fa-check"></i>
@@ -70,7 +82,7 @@ function SignIn(props) {
                     required
                   />
                   <span className="icon is-small is-left">
-                    <Icon name="lock" size={0.9} />
+                    <Icon name="lock" size="0.9" />
                   </span>
                 </div>
               </div>
@@ -93,6 +105,7 @@ function SignIn(props) {
 }
 
 SignIn.propTypes = {
+  commonContext: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 }
 
