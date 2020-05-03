@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import PropTypes from 'prop-types'
 import * as api from '../../api'
 import Icon from '../icons/Icon'
@@ -15,10 +15,6 @@ interface SignInProps {
   }
 }
 
-interface handleEvent {
-  preventDefault: () => void
-}
-
 const SignIn: React.FC<SignInProps> = props => {
   const {
     commonContext: { getPublicKey }
@@ -28,7 +24,10 @@ const SignIn: React.FC<SignInProps> = props => {
 
   useEffect(getPublicKey, [])
 
-  const submit = async (authenticate: (user: object) => void, e: handleEvent) => {
+  const submit = async (
+    e: FormEvent<HTMLFormElement>,
+    authenticate: (user: object) => void
+  ): Promise<any> => {
     e && e.preventDefault() // stop the page trying to load the action url.
     const {
       commonContext: { publicKey },
@@ -53,7 +52,7 @@ const SignIn: React.FC<SignInProps> = props => {
     <section className="hero is-fullheight-with-navbar level">
       <UserContext.Consumer>
         {({ authenticate }) => (
-          <form onSubmit={e => submit(authenticate, e)} className="level-item has-text-centered">
+          <form onSubmit={e => submit(e, authenticate)} className="level-item has-text-centered">
             <div>
               <div className="field">
                 <div className="control has-icons-left has-icons-right">
@@ -102,11 +101,6 @@ const SignIn: React.FC<SignInProps> = props => {
       </UserContext.Consumer>
     </section>
   )
-}
-
-SignIn.propTypes = {
-  commonContext: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
 }
 
 export default withRouter(WithCommonContext(SignIn))
