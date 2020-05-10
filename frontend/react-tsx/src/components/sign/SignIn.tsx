@@ -33,10 +33,10 @@ const SignIn: React.FC<SignInProps> = props => {
       commonContext: { publicKey },
       history
     } = props
-    if (!name) return console.error('请输入名字')
-    else if (!password) return console.error('请输入密码')
-    let encryptor = new JSEncrypt() //实例化
-    encryptor.setPublicKey(publicKey) //设置公钥
+    if (!name) return console.error('please enter name')
+    else if (!password) return console.error('please enter password')
+    let encryptor = new JSEncrypt()
+    encryptor.setPublicKey(publicKey)
     api
       .signIn({
         name,
