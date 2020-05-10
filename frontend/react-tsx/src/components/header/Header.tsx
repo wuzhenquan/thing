@@ -65,6 +65,4 @@ const Header: React.FC<SignInProps> = props => {
   )
 }
 
-Header.prototype
-
 export default WithUserContext(Header)
