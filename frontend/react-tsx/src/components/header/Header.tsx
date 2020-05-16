@@ -4,13 +4,13 @@ import logo from '../../images/logo.png'
 import UserDropDown from '../user/UserDropDown'
 import WithUserContext from '../../context/user/WithUserContext'
 
-interface SignInProps {
+interface HeaderProps {
   userContext: {
     name: string
   }
 }
 
-const Header: React.FC<SignInProps> = props => {
+const Header: React.FC<HeaderProps> = props => {
   const [burgerOpen, setBurgerOpen] = useState(false)
   const {
     userContext: { name }

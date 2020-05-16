@@ -2,7 +2,12 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import './sidebar.scss'
 
-function SidebarLink({ label, to, activeOnlyWhenExact }) {
+interface SidebarLinkProps {
+  label: string
+  to: string
+  activeOnlyWhenExact: boolean
+}
+const SidebarLink: React.FC<SidebarLinkProps> = ({ label, to, activeOnlyWhenExact }) => {
   return (
     <Route
       path={to}

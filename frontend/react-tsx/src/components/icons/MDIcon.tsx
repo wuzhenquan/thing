@@ -4,7 +4,13 @@ import * as mdIcons from '@mdi/js'
 import myStyles from '../../mystyles.scss'
 import './MDIcon.scss'
 
-function MDIcon({ name, size = '1em', color = 'primary' }) {
+interface MDIconProps {
+  name: string
+  size?: string
+  color?: string
+}
+
+const MDIcon: React.FC<MDIconProps> = ({ name, size = '1em', color = 'primary' }) => {
   let path = mdIcons.mdiEmoticonHappy
   let iconColor = myStyles[color] || color
   switch (name) {

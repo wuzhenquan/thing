@@ -1,18 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import Icon from '../../icons/Icon'
 
-function TodoItem(props) {
+// TODO dup
+interface TodoInfo {
+  id: number
+  content: string
+}
+// TODO dup
+interface EditTodoFunc {
+  (info: TodoInfo, editingIndex: number, contentValue: string): Promise<any>
+}
+// TODO dup
+interface DeleteTodoFunc {
+  (id: number, deletingIndex: number): Promise<any>
+}
+interface TodoItemProps {
+  focusing: boolean
+  index: number
+  info: TodoInfo
+  changeFocusId: (id: number) => void
+  editTodo: EditTodoFunc
+  deleteTodo: DeleteTodoFunc
+}
+
+const TodoItem: React.FC<TodoItemProps> = (props) => {
   const [content, setContent] = useState(props.info.content)
   const { focusing, index, info, changeFocusId, editTodo, deleteTodo } = props
-  const textareaRef = useRef()
+  const inputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    if (focusing) focus(textareaRef)
+    if (focusing) focus()
   }, [focusing])
 
   const focus = () => {
-    textareaRef.current.focus()
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus()
+    }
   }
+
   return (
     <div
       className="todo-item"
@@ -20,12 +44,11 @@ function TodoItem(props) {
         changeFocusId(info.id)
       }}
     >
-      <span className="pointer" onClick={() => {}}>
+      <span className="pointer" onClick={() => { }}>
         <Icon name="radioBoxBlank" />
       </span>
       <input
-        rows="1"
-        ref={textareaRef}
+        ref={inputRef}
         value={content}
         onChange={e => setContent(e.target.value)}
         onBlur={e => editTodo(info, index, e.target.value)}
@@ -36,14 +59,6 @@ function TodoItem(props) {
       </span>
     </div>
   )
-}
-
-TodoItem.propTypes = {
-  index: PropTypes.number.isRequired,
-  info: PropTypes.object.isRequired,
-  changeFocusId: PropTypes.func.isRequired,
-  focusing: PropTypes.bool.isRequired,
-  editTodo: PropTypes.func.isRequired
 }
 
 export default TodoItem

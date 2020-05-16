@@ -12,7 +12,7 @@ export default function UserDropDown() {
           setIsActive(!isActive)
         }}
       >
-        <Icon name="account" size={0.9} />
+        <Icon name="account" size="0.9" />
       </div>
       <div className="dropdown-menu" id="dropdown-menu4" role="menu">
         <div className="dropdown-content">

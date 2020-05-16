@@ -1,1 +1,1 @@
-console.log('this is utility')
+export const hello = () => console.log('hello')

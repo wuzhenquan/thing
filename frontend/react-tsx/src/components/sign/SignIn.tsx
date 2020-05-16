@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FormEvent } from 'react'
-import PropTypes from 'prop-types'
 import * as api from '../../api'
 import Icon from '../icons/Icon'
 import { withRouter } from 'react-router-dom'

@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react'
 import * as api from '../../api'
 import Icon from '../icons/Icon'
 import { withRouter } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { JSEncrypt } from 'jsencrypt'
 import WithCommonContext from '../../context/common/WithCommonContext'
 import UserContext from '../../context/user/UserContext'
 
-function SignUp(props) {
+interface SignUpProps {
+  commonContext: {
+    getPublicKey: () => void
+    publicKey: string
+  }
+  history: { push: (url: string) => void }
+}
+
+const SignUp: React.FC<SignUpProps> = props => {
   const {
-    commonContext: { getPublicKey }
+    commonContext: { getPublicKey, publicKey },
+    history: { push }
   } = props
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -17,26 +25,22 @@ function SignUp(props) {
 
   useEffect(getPublicKey, [])
 
-  const submit = (authenticate, e) => {
-    const {
-      commonContext: { publicKey },
-      history
-    } = props
+  function submit(authenticate: (user: object) => void, e: React.FormEvent<HTMLFormElement>): void {
     e && e.preventDefault() // stop the page trying to load the action url.
-    if (!name) return console.error('请输入名字')
-    else if (!password) return console.error('请输入密码')
-    let encryptor = new JSEncrypt() //实例化
-    encryptor.setPublicKey(publicKey) //设置公钥
-    api
-      .signUp({
-        name,
-        email,
-        password: encryptor.encrypt(password)
-      })
-      .then(user => authenticate(user))
-      .then(() => {
-        history.push('/workbench/todo')
-      })
+    if (!name) console.error('请输入名字')
+    else if (!password) console.error('请输入密码')
+    else {
+      let encryptor = new JSEncrypt() //实例化
+      encryptor.setPublicKey(publicKey) //设置公钥
+      api
+        .signUp({
+          name,
+          email,
+          password: encryptor.encrypt(password)
+        })
+        .then(user => authenticate(user))
+        .then(() => push('/workbench/todo'))
+    }
   }
   return (
     <section className="hero is-fullheight-with-navbar level">
@@ -54,7 +58,7 @@ function SignUp(props) {
                     onChange={e => setName(e.target.value)}
                   />
                   <span className="icon is-small is-left">
-                    <Icon name="account" size={0.9} />
+                    <Icon name="account" size="0.9" />
                   </span>
                   <span className="icon is-small is-right">
                     <i className="fas fa-check"></i>
@@ -71,7 +75,7 @@ function SignUp(props) {
                     onChange={e => setEmail(e.target.value)}
                   />
                   <span className="icon is-small is-left">
-                    <Icon name="email" size={0.9} />
+                    <Icon name="email" size="0.9" />
                   </span>
                   <span className="icon is-small is-right">
                     <i className="fas fa-check"></i>
@@ -88,7 +92,7 @@ function SignUp(props) {
                     onChange={e => setPassword(e.target.value)}
                   />
                   <span className="icon is-small is-left">
-                    <Icon name="lock" size={0.9} />
+                    <Icon name="lock" size="0.9" />
                   </span>
                 </p>
               </div>
@@ -116,10 +120,6 @@ function SignUp(props) {
       </UserContext.Consumer>
     </section>
   )
-}
-
-SignUp.propTypes = {
-  history: PropTypes.object.isRequired
 }
 
 export default withRouter(WithCommonContext(SignUp))

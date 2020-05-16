@@ -1,12 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import * as api from '../../api'
 import { withRouter } from 'react-router-dom'
 import WithUserContext from '../../context/user/WithUserContext'
 
-function BtnSignOut(props) {
+interface BtnSignOutProps {
+  history: { push: (url: string) => void }
+  userContext: { authenticate: () => void }
+}
+
+const BtnSignOut: React.FC<BtnSignOutProps> = props => {
   const {
-    history,
+    history: { push },
     userContext: { authenticate }
   } = props
   return (
@@ -15,19 +19,12 @@ function BtnSignOut(props) {
         api
           .signOut()
           .then(() => authenticate())
-          .then(() => {
-            history.push('/public')
-          })
+          .then(() => push('/public'))
       }}
     >
       {props.children}
     </div>
   )
-}
-
-BtnSignOut.propTypes = {
-  children: PropTypes.string,
-  history: PropTypes.object.isRequired
 }
 
 export default withRouter(WithUserContext(BtnSignOut))

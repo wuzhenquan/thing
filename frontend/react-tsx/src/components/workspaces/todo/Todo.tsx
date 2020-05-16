@@ -1,16 +1,47 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
 import './todo.scss'
 
-function Todo(props) {
+// TODO dup
+interface TodoInfo {
+  id: number
+  content: string
+}
+// TODO dup
+interface AddTodoFunc {
+  (): Promise<any>
+}
+interface GetTodosFunc {
+  (): Promise<any>
+}
+// TODO dup
+interface EditTodoFunc {
+  (info: TodoInfo, editingIndex: number, contentValue: string): Promise<any>
+}
+// TODO dup
+interface DeleteTodoFunc {
+  (id: number, deletingIndex: number): Promise<any>
+}
+
+interface TodoProps {
+  todoContext: {
+    addTodo: AddTodoFunc
+    getTodos: GetTodosFunc
+    editTodo: EditTodoFunc
+    deleteTodo: DeleteTodoFunc
+    todosData: TodoInfo[]
+  }
+}
+
+const Todo: React.FC<TodoProps> = props => {
   const {
     todoContext: { getTodos, todosData }
   } = props
   const [focusTodoId, setFocusTodoId] = useState(0)
-  useEffect(getTodos, [])
+
+  useEffect(() => { getTodos() }, [getTodos])
 
   const addTodo = () => {
     const {
@@ -23,21 +54,21 @@ function Todo(props) {
       })
   }
 
-  const editTodo = (info, index, contentValue) => {
+  const editTodo: EditTodoFunc = (info, index, contentValue) => {
     const {
       todoContext: { editTodo }
     } = props
-    editTodo(info, index, contentValue).then(() => changeFocusId(0))
+    return editTodo(info, index, contentValue).then(() => changeFocusId(0))
   }
 
-  const deleteTodo = (id, index) => {
+  const deleteTodo: DeleteTodoFunc = (id, index) => {
     const {
       todoContext: { deleteTodo }
     } = props
-    deleteTodo(id, index)
+    return deleteTodo(id, index)
   }
 
-  const changeFocusId = todoId => {
+  const changeFocusId = (todoId: number) => {
     setFocusTodoId(todoId || 0)
   }
 
@@ -59,7 +90,6 @@ function Todo(props) {
         return (
           <TodoItem
             key={todoId}
-            id={todoId}
             index={index}
             info={item}
             changeFocusId={changeFocusId}
@@ -71,10 +101,6 @@ function Todo(props) {
       })}
     </div>
   )
-}
-
-Todo.propTypes = {
-  todoContext: PropTypes.object.isRequired
 }
 
 export default WithTodoContext(Todo)
