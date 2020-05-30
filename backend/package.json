@@ -19,5 +19,11 @@
     "koa-session": "^5.9.0",
     "mongoose": "^5.2.12",
     "node-rsa": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa-router": "^7.4.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
   }
 }
