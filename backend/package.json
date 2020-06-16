@@ -5,24 +5,32 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_PATH=src NODE_ENV=development node index.js",
-    "production": "NODE_PATH=src NODE_ENV=production node index.js"
+    "start": "NODE_PATH=src NODE_ENV=development ts-node src/index.ts",
+    "production": "NODE_PATH=src NODE_ENV=production node src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^2.2.2",
     "crypto": "^1.0.1",
-    "koa": "^2.5.2",
-    "koa-bodyparser": "^4.2.1",
+    "koa": "^2.12.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
-    "koa-session": "^5.9.0",
-    "mongoose": "^5.7.5",
+    "koa-session": "^5.13.1",
+    "mongoose": "^5.9.18",
     "node-rsa": "^1.0.7"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-logger": "^3.1.1",
     "@types/koa-router": "^7.4.1",
+    "@types/koa-session": "^5.10.2",
+    "@types/mongoose": "^5.7.22",
+    "@types/node": "^14.0.11",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.3"
   }
