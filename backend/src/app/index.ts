@@ -1,12 +1,12 @@
 const Koa = require('koa')
 const router = require('../routing')
 const bodyparser = require('koa-bodyparser')
-const database = require('../database')
-const SessionStore = require('./sessionStore')
+import * as database from '../database/index'
 const session = require('koa-session')
 const cors = require('@koa/cors')
 const config = require('../config')
 const generateRsa = require('./rsa/generateRsa')
+import sessionStore from './sessionStore'
 generateRsa()
 const sessionCONFIG = {
   key: 'sessionId', // (string) cookie key (default is koa:sess)
@@ -14,7 +14,7 @@ const sessionCONFIG = {
   overwrite: true, // can overwrite session or not
   signed: true, // have sign cookie or not
   rolling: false,
-  store: new SessionStore(),
+  store: new sessionStore(),
   // we can put some cookie settings in this config (find source code from koa-session)
   httpOnly: true // set-cookie: httponly
 }

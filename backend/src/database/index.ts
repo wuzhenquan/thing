@@ -2,12 +2,12 @@ import * as mongoose from 'mongoose'
 import configuration from '../configuration'
 
 const mongoUrl = configuration.MONGO_URL
-const DBname = configuration.MONGO_DATABASE_NAME
+const DBName = configuration.MONGO_DATABASE_NAME
 
 export const connect = () => {
   return new Promise((resolve, reject) => {
     mongoose.connect(
-      `${mongoUrl}/${DBname}`,
+      `${mongoUrl}/${DBName}`,
       { 
         useNewUrlParser: true, 
         useUnifiedTopology: true // Set to true to opt in to using the MongoDB driver's new connection management engine.

@@ -1,32 +1,35 @@
 
 import * as mongoose from 'mongoose'
-import { Document, Model } from 'mongoose'
-var Schema = mongoose.Schema;
+import { Document, Model, Schema } from 'mongoose'
 
 
-const schema = {
-  _id: String,
-  data: Object
-}
+// Types and references
 
-interface ISession extends Document {
-  _id: string;
-  data: any;
+
+
+interface ISession extends mongoose.Document {
+  _id: string
+  data: any
 }
 
 class MongooseStore {
-  session: Model<ISession>
-
+  session: any;
   constructor({
     collection = 'sessions',
     name = 'Session'
   } = {}) {
-    this.session = mongoose.model(name, new Schema<ISession>({ ...schema }), collection)
+
+    const sessionSchema: Schema = new mongoose.Schema({
+      _id: String,
+      data: Object,
+    })
+
+    this.session = mongoose.model<ISession>(name, sessionSchema, collection)
   }
 
   async destroy(id) {
     const { session } = this
-    return this.session.remove({ _id: id })
+    return session.remove({ _id: id })
   }
 
   async get(id) {
@@ -38,14 +41,11 @@ class MongooseStore {
   async set(id, data, maxAge, { changed, rolling }) {
     if (changed || rolling) {
       const { session } = this
-      const record = {
-        _id: id,
-        data
-      }
-      await session.findByIdAndUpdate(id, record, { upsert: true })
+      const record = { _id: id, data }
+      await session.findByIdAndUpdate(id, record, { upsert: true, safe: true })
     }
     return data
   }
 }
 
-module.exports = MongooseStore
+export default MongooseStore
