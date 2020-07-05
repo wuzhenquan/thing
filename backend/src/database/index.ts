@@ -1,20 +1,18 @@
-const mongoose = require('mongoose')
-const configuration = require('../configuration')
+import * as mongoose from 'mongoose'
+import configuration from '../configuration'
 
-mongoose.Promise = global.Promise
+const mongoUrl = configuration.MONGO_URL
+const DBname = configuration.MONGO_DATABASE_NAME
 
-const url = configuration.get('MONGO_URL')
-const db = configuration.get('MONGO_DATABASE_NAME')
-
-exports.connect = () => {
+export const connect = () => {
   return new Promise((resolve, reject) => {
-    mongoose.connect(`${url}/${db}`, {
-      useNewUrlParser: true
-    }).then(() => console.log('MongoDB Connected...'))
-    .catch((err) => console.log(err, 'dlfkajslkdjflasjdklfad'));
-
-    const connection = mongoose.connection
-    connection.on('error', reject)
-    connection.once('open', resolve)
+    mongoose.connect(
+      `${mongoUrl}/${DBname}`,
+      { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true // Set to true to opt in to using the MongoDB driver's new connection management engine.
+      }
+    ).then(() => console.log('MongoDB Connected...'))
+      .catch((err) => console.log(err))
   })
 }
