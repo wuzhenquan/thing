@@ -19,7 +19,7 @@
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.13.1",
-    "mongoose": "^5.9.18",
+    "mongoose": "^5.9.21",
     "node-rsa": "^1.0.7"
   },
   "devDependencies": {
