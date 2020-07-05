@@ -1,5 +1,9 @@
 必须安装 16.6.1 以上的版本
 
+参考：
+
+[React Context with TypeScript: Part 3 - Context with class components](https://www.carlrippon.com/react-context-with-typescript-p3/) 
+
 ## 基本用法
 
 ### 创建一个 context
@@ -90,7 +94,17 @@ class App extends React.Component {
 
 ### Class.contextType:
 
-~~`MyClass.contextType = MyContext`~~(缺点：不能同时使用多个 contexts)
+缺点：不能同时使用多个 contexts
+
+```react
+class Header extends React.Component {
+  static contextType = ThemeContext;
+  render() {
+    const { theme, setTheme } = this.context!;
+    return ( ... );
+  }
+}
+```
 
 ### Context.Consumer: 
 
