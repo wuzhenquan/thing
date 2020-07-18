@@ -2,18 +2,13 @@
 import * as mongoose from 'mongoose'
 import { Document, Model, Schema } from 'mongoose'
 
-
-// Types and references
-
-
-
 interface ISession extends mongoose.Document {
   _id: string
   data: any
 }
 
 class MongooseStore {
-  session: any;
+  session: any; // TODO
   constructor({
     collection = 'sessions',
     name = 'Session'

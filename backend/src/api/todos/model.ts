@@ -1,10 +1,12 @@
 import * as mongoose from 'mongoose'
 const { Schema } = mongoose
 
+interface ITodo extends mongoose.Document {
+  content: string
+}
+
 const todoSchema = new Schema({
-  content: { type: String, default: '' },
-  create_on: { type: Date, default: Date.now },
-  update_on: { type: Date, default: Date.now }
+  content: { type: String, default: '' }
 })
 
 // todoSchema.virtual('id').get(function () { // https://mongoosejs.com/docs/api/schema.html#schema_Schema-virtual
@@ -19,4 +21,4 @@ todoSchema.set('toObject', {
   }
 }) // https://mongoosejs.com/docs/guide.html#toObject
 
-export default mongoose.model('Todo', todoSchema)
+export default mongoose.model<ITodo>('Todo', todoSchema)

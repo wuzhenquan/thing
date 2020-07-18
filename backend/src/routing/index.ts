@@ -2,9 +2,9 @@ import { DefaultState, Context } from 'koa';
 import * as Router from 'koa-router'
 
 const router = new Router<DefaultState, Context>()
-const usersRouter = require('../api/users/routes')
-const todosRouter = require('../api/todos/routes')
-const publicKeyRouter = require('../api/publicKey')
+import usersRouter from '../api/users/routes'
+import todosRouter from '../api/todos/routes'
+import publicKeyRouter from '../api/publicKey'
 
 router
   .use((ctx, next) => {
@@ -24,4 +24,4 @@ router
   .use('/users', usersRouter.routes())
   .use('/todos', todosRouter.routes())
 
-module.exports = router
+export default router

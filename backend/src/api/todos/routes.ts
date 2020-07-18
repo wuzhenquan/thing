@@ -1,5 +1,5 @@
 import * as Router from 'koa-router'
-const controller = require('./controller')
+import * as controller from './controller'
 
 const router = new Router()
 // get todos data
@@ -40,4 +40,4 @@ router.delete('/:id', async ctx => {
   ctx.body = info
 })
 
-module.exports = router
+export default router

@@ -1,9 +1,8 @@
 import { DefaultState, Context } from 'koa';
 import * as Router from 'koa-router'
-
-const controller = require('./controller')
-const crypto = require('crypto')
-const fs = require('fs')
+import * as controller from './controller'
+import * as crypto from 'crypto'
+import * as fs from 'fs'
 
 const router = new Router<DefaultState, Context>()
 
@@ -61,7 +60,7 @@ router.post('/signup', async ctx => {
     data.password = md5Password
     const duplicateUsers = await controller.read({ name: data.name })
     if (duplicateUsers.length !== 0) {
-      const userInfo = await controller.create({ data })
+      const userInfo = await controller.create(data)
       setSignInOrSignOutCtx(ctx, userInfo)
     } else {
       ctx.throw(401, 'The user name has been registered. ')
@@ -73,11 +72,11 @@ router.post('/signup', async ctx => {
   }
 })
 
-router.post('/signin', async ctx => {
+router.post('/signin', async (ctx: any) => {
   const data = ctx.request.body
   const encryptedPassword = decryptPassword(data.password)
   const md5Password = cryptPwd(encryptedPassword)
-  const userInfo = await controller.signin({ data })
+  const userInfo = await controller.signin(data)
   // validation
   if (!userInfo || userInfo.name !== data.name) {
     ctx.throw(401, 'User not found. ')
@@ -97,4 +96,4 @@ router.post('/signout', async ctx => {
   ctx.body = {}
 })
 
-module.exports = router
+export default router

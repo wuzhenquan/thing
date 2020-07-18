@@ -1,11 +1,11 @@
-const Koa = require('koa')
-const router = require('../routing')
-const bodyparser = require('koa-bodyparser')
+import * as Koa from 'koa'
+import * as bodyparser from 'koa-bodyparser'
 import * as database from '../database/index'
-const session = require('koa-session')
-const cors = require('@koa/cors')
-const config = require('../config')
-const generateRsa = require('./rsa/generateRsa')
+import * as session from 'koa-session'
+import * as cors from '@koa/cors'
+import router from '../routing'
+import configuration from '../configuration'
+import generateRsa from './rsa/generateRsa'
 import sessionStore from './sessionStore'
 generateRsa()
 const sessionCONFIG = {
@@ -21,7 +21,7 @@ const sessionCONFIG = {
 
 const app = new Koa()
 app.keys = ['some secret key'] // encrypt cookie (required for signed cookies)
-app.use(cors({ origin: config.frontendOrigin, credentials: true })) // response.setHeader({Access-Control-Allow-Origin: config.frontendOrigin, Access-Control-Allow-Credentials: true})
+app.use(cors({ origin: configuration.frontendOrigin, credentials: true })) // response.setHeader({Access-Control-Allow-Origin: config.frontendOrigin, Access-Control-Allow-Credentials: true})
 app.use(session(sessionCONFIG, app))
 app.use(bodyparser())
 app.use(router.routes())

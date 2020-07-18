@@ -1,13 +1,25 @@
 import User from './model'
 
-exports.read = async (data = {}) => {
-  return User.find(data)
+interface IUser {
+  name: string
+  password: string
+  email: string
 }
 
-exports.create = ({ data = {} } = {}) => {
+interface IUserFind {
+  name: IUser['name']
+  password?: IUser['password']
+  email?: IUser['email']
+}
+
+export const create = (data: IUser) => {
   return User.create(data)
 }
 
-exports.signin = (data: { name: string }) => {
+export const read = (data?: IUserFind) => {
+  return User.find(data)
+}
+
+export const signin = (data: IUserFind) => {
   return User.findOne({ name: data.name })
 }

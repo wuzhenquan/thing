@@ -8,4 +8,4 @@ router.get('/', ctx => {
   ctx.body = { publicKey }
 })
 
-module.exports = router
+export default router

@@ -1,5 +1,12 @@
 import * as mongoose from 'mongoose'
-const { Schema } = require('mongoose')
+
+const { Schema } = mongoose
+
+interface IUser extends mongoose.Document {
+  name: string
+  password: string
+  email: string
+}
 
 const UserSchema = new Schema({
   name: { type: String, required: true },
@@ -9,4 +16,4 @@ const UserSchema = new Schema({
   update_on: { type: Date, default: Date.now }
 })
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model<IUser>('User', UserSchema)

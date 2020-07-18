@@ -1,5 +1,5 @@
-const NodeRSA = require('node-rsa')
-const fs = require('fs')
+import * as NodeRSA from 'node-rsa'
+import * as fs from 'fs'
 
 function generateRsa() {
   var key = new NodeRSA({ b: 512 }) // Generate new 512bit-length key
@@ -18,5 +18,4 @@ function generateRsa() {
     console.log('private key saved')
   })
 }
-
-module.exports = generateRsa
+export default generateRsa

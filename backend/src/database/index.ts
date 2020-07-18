@@ -9,7 +9,7 @@ export const connect = () => {
     mongoose.connect(
       `${mongoUrl}/${DBName}`,
       { 
-        useNewUrlParser: true, 
+        useNewUrlParser: true, // use the new parser because current URL string parsed is deprecated
         useUnifiedTopology: true // Set to true to opt in to using the MongoDB driver's new connection management engine.
       }
     ).then(() => console.log('MongoDB Connected...'))
