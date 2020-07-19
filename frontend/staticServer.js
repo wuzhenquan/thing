@@ -1,10 +1,14 @@
-const express = require('express')
-const path = require('path')
-const app = express()
-const newPath = path.join(__dirname, '/React/build')
+const http = require('http');
+const fs = require('fs');
 
-app.use(express.static(newPath))
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(newPath, 'index.html'))
-})
-app.listen(80)
+function onRequest(req, res){
+    console.log("USER MADE A REQUEST. " +req.url);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    const readStream = fs.createReadStream(__dirname + '/react-tsx/build/index.html','utf8'); 
+    readStream.pipe(res);
+
+}
+
+http.createServer(onRequest).listen(80);
+
+console.log('Web Server is running...');
