@@ -1,3 +1,58 @@
+### Installation
+
+```sh
+yarn
+```
+
+### Getting Started
+
+**mongoDB **
+
+[Install MongoDB](https://docs.mongodb.com/manual/administration/install-community/) 
+
+```sh
+brew services start mongodb-community@4.2
+```
+
+**backend** 
+
+```sh
+cd backend
+yarn start
+```
+
+**frontend** 
+
+```sh
+cd frontend/react-tsx
+yarn start
+```
+
+### Deploy
+
+[Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) 
+
+**mongoDB** 
+
+```sh
+sudo service mongod start
+```
+
+**backend** 
+
+[pm2 quick start](https://pm2.keymetrics.io/docs/usage/quick-start/) 
+
+```sh
+pm2 start npm -- run production
+```
+
+**frontend** 
+
+```sh
+yarn run build
+node server.js
+```
+
 ### Association
 
 - [📋project trello](https://trello.com/b/8AHQFOhN/)
