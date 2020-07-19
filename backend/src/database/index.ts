@@ -5,14 +5,11 @@ const mongoUrl = configuration.MONGO_URL
 const DBName = configuration.MONGO_DATABASE_NAME
 
 export const connect = () => {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(
-      `${mongoUrl}/${DBName}`,
-      { 
-        useNewUrlParser: true, // use the new parser because current URL string parsed is deprecated
-        useUnifiedTopology: true // Set to true to opt in to using the MongoDB driver's new connection management engine.
-      }
-    ).then(() => console.log('MongoDB Connected...'))
-      .catch((err) => console.log(err))
-  })
+  return mongoose.connect(
+    `${mongoUrl}/${DBName}`,
+    {
+      useNewUrlParser: true, // use the new parser because current URL string parsed is deprecated
+      useUnifiedTopology: true // Set to true to opt in to using the MongoDB driver's new connection management engine.
+    }
+  ).catch((err) => console.log(err))
 }

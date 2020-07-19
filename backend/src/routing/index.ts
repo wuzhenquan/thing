@@ -16,7 +16,7 @@ router
     if (requestSessionId && sessionId && requestSessionId === sessionId) {
       return next()
     } else {
-      ctx.throw(406, 'please signin (did not signin or signin expired)')
+      ctx.throw(401, 'please signin (did not signin or signin expired)')
       return ctx.redirect('back')
     }
   })
