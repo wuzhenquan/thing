@@ -4,7 +4,7 @@ import * as fs from 'fs'
 const router = new Router()
 
 router.get('/', ctx => {
-  const publicKey = fs.readFileSync(`${process.cwd()}/app/rsa/public.pem`, 'utf-8')
+  const publicKey = fs.readFileSync(`${process.cwd()}/src/app/rsa/public.pem`, 'utf-8')
   ctx.body = { publicKey }
 })
 

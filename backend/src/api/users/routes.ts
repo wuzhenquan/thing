@@ -8,8 +8,8 @@ const router = new Router<DefaultState, Context>()
 
 // decrypt by private key
 const decryptPassword = encryptedPassword => {
-  const privateKey = fs.readFileSync(`${process.cwd()}/app/rsa/private.pem`, 'utf8')
-  const buffer = Buffer.from(encryptedPassword, 'base64') //转化格式
+  const privateKey = fs.readFileSync(`${process.cwd()}/src/app/rsa/private.pem`, 'utf8')
+  const buffer = Buffer.from(encryptedPassword, 'base64')
   const password = crypto
     .privateDecrypt(
       {

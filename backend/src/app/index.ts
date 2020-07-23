@@ -7,7 +7,7 @@ import router from '../routing'
 import configuration from '../configuration'
 import generateRsa from './rsa/generateRsa'
 import sessionStore from './sessionStore'
-generateRsa()
+
 const sessionCONFIG = {
   key: 'sessionId', // (string) cookie key (default is koa:sess)
   maxAge: 86400000, // 1 days
@@ -19,6 +19,7 @@ const sessionCONFIG = {
   httpOnly: true // set-cookie: httponly
 }
 
+generateRsa()
 const app = new Koa()
 app.keys = ['some secret key'] // encrypt cookie (required for signed cookies)
 app.use(cors({ origin: configuration.frontendOrigin, credentials: true })) // response.setHeader({Access-Control-Allow-Origin: config.frontendOrigin, Access-Control-Allow-Credentials: true})
