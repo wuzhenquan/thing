@@ -1,7 +1,30 @@
 {
   "search.exclude": {
     "**/node_modules": true,
-    "**/build": true,
-    "**/records": true
-  }
+    "**/build": true
+  },
+  "cSpell.ignoreRegExpList": [
+    "bodyparser",
+    "schema",
+    "virtuals",
+    "signin",
+    "signup",
+    "signout",
+    "httponly",
+    "upsert",
+    "mystyles",
+    "unmount",
+    "bulma",
+    "browserslist",
+    "jsencrypt",
+    "esnext",
+    "todos",
+    "keepalive",
+    "publickey",
+    "mdiRadioboxBlank",
+    "fullheight",
+    "fullwidth",
+    "encryptor",
+    
+  ]
 }
