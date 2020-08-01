@@ -6,7 +6,7 @@
 
 1. 生成公钥和私钥
 
-```tsx
+```ts
 const NodeRSA = require('node-rsa');
 const fs = require('fs');
 //生成公钥
@@ -18,11 +18,11 @@ function generator() {
     var privatePem = key.exportKey('pkcs1-private-pem')
     var publicPem = key.exportKey('pkcs8-public-pem')
 
-    fs.writeFile('./pem/public.pem', publicPem, (err) => {
+    fs.writeFile('${__dirname}/public.pem', publicPem, (err) => {
         if (err) throw err
         console.log('公钥已保存！')
     })
-    fs.writeFile('./pem/private.pem', privatePem, (err) => {
+    fs.writeFile('${__dirname}/private.pem', privatePem, (err) => {
         if (err) throw err
         console.log('私钥已保存！')
     })
@@ -37,7 +37,7 @@ generator();
    const router = new Router()
    const fs = require('fs')
    router.get('/', ctx => {
-     const publicKey = fs.readFileSync(`${__dirname}/../rsa/public.pem`, 'utf-8')
+     const publicKey = fs.readFileSync(`${process.cwd()}/src/app/rsa/public.pem`, 'utf-8')
      ctx.body = { publicKey }
    })
    module.exports = router
@@ -46,19 +46,21 @@ generator();
 3. 后台用私钥解密
 
    ```js
-   const encryptedPassword = ''
-   const privateKey = fs.readFileSync(`${__dirname}/../../rsa/private.pem`, 'utf8')
-   const buffer = Buffer.from(encryptedPassword, 'base64') //转化格式
-   const password = crypto
-     .privateDecrypt(
-       {
-         key: privateKey,
-         padding: crypto.constants.RSA_PKCS1_PADDING
-       },
-       buffer
-     )
-     .toString('utf8')
-   ```
+  const decryptPassword = encryptedPassword => {
+    const privateKey = fs.readFileSync(`${process.cwd()}/app/rsa/private.pem`, 'utf8')
+    const buffer = Buffer.from(encryptedPassword, 'base64')//转化格式
+    const password = crypto
+      .privateDecrypt(
+        {
+          key: privateKey,
+          padding: crypto.constants.RSA_PKCS1_PADDING
+        },
+        buffer
+      )
+      .toString('utf8')
+    return password
+  }
+  ```
 
    
 

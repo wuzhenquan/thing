@@ -4,16 +4,6 @@
 
 - [Mongoose.prototype.model()](https://mongoosejs.com/docs/api/mongoose.html#mongoose_Mongoose-model) 
 
- 
-
-
-
-
-
-schema → model → document
-
-
-
 #### **Schemas** 
 
 - define the shape and content of documents

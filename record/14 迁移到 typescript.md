@@ -163,11 +163,13 @@ declare module 'jsencrypt' {
 
 需要改动的地方，将 commonJS 的模块导入导出相关的语法改为 TS 模块系统导入导出的语法。
 
-### 第一种：用 typescript 编译 ts 到 js
+### ~~第一种：用 typescript 编译 ts 到 js~~ 
+
+缺点：多了一个编译的阶段/
 
 https://medium.com/@masnun/typescript-with-koa-part-1-c4843f16a4ad
 
-#### 简单且原始
+**简单且原始** 
 
 1. 安装
 
@@ -190,7 +192,7 @@ npm i -D @types/node
 
 7. ⭐️ 执行 `node .` 
 
-#### 进化
+**进化** 
 
 1. 自动化编译、自动化监听。
 
@@ -222,8 +224,30 @@ npm i -D @types/node
 
 ### 第二种：用 ts-node 直接运行项目
 
-1. use [ts-node](https://github.com/TypeStrong/ts-node) to run: `ts-node src/index.ts` 
-2. 监听并运行： `ts-node-dev src/index.ts`，要装 `npm i -D typescript`。
+还是直接用 ts-node 比较直接比较爽
+
+**原始** 
+
+use [ts-node](https://github.com/TypeStrong/ts-node) to run: `ts-node src/index.ts` 
+
+**进化** 
+
+监听并运行： `ts-node-dev src/index.ts`，要装 `npm i -D typescript`。
+
+**最终** 
+
+```ts
+// package.json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_PATH=src NODE_ENV=development ts-node-dev src/index.ts",
+    "production": "NODE_PATH=src NODE_ENV=production ts-node src/index.ts"
+},
+```
+
+
+
+
 
 **为什么 typescript 装在 devDependencies  里**
 
@@ -252,13 +276,13 @@ The reason you need to do this is, CRA will remove any properties it deems inval
 
 **参考** 
 
-https://juejin.im/post/5de4867f51882573135415dd
+[Node.js 项目 TypeScript 改造指南](https://juejin.im/post/5de4867f51882573135415dd) 
 
 这篇文章讲到了*目录结构*、*模板文件提取*、*ESLint 配置*
 
 ### 遇到的问题
 
-#### Cannot redeclare block-scoped variable 'fs'.
+#### 1. Cannot redeclare block-scoped variable 'fs'.
 
 ```js
 const fs = require('fs')
@@ -277,7 +301,7 @@ const fs = require('fs')
 
 
 
-#### 1. File '/src/app/index.ts' is not a module.
+#### 2. File '/src/app/index.ts' is not a module.
 
 ```ts
 import * as app from 'app/index'
@@ -288,7 +312,7 @@ import * as app from 'app/index'
 
 
 
-#### 2. Property 'session' does not exist on type 'ParameterizedContext<any, IRouterParamContext<any, {}>>'. 
+#### 3. Property 'session' does not exist on type 'ParameterizedContext<any, IRouterParamContext<any, {}>>'. 
 
 ```ts
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/36161#issuecomment-550784278
@@ -335,7 +359,7 @@ create-react-app 前端项目可以将所有的包放到 dependencies 里，但 
 
 ```json
   "scripts": {
-    "start": "NODE_PATH=src NODE_ENV=development ts-node src/index.ts",
+    "start": "NODE_PATH=src NODE_ENV=development ts-node-dev src/index.ts",
     "production": "NODE_PATH=src NODE_ENV=production ts-node src/index.ts"
   }
 ```
