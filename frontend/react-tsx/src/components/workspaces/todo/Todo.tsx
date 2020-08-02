@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
@@ -41,7 +41,9 @@ const Todo: React.FC<TodoProps> = props => {
   } = props
   const [focusTodoId, setFocusTodoId] = useState(0)
 
-  useEffect(() => { getTodos() }, [getTodos])
+  const fetchTodos = useCallback(() => getTodos(), [getTodos])
+
+  useEffect(() => { fetchTodos() }, [fetchTodos]) // how to fix this line?
 
   const addTodo = () => {
     const {
