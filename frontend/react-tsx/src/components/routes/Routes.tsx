@@ -15,7 +15,6 @@ interface RoutesProps {
 }
 
 const Routes: React.FC<RoutesProps> = props => {
-  console.log(props,'props');
   const {
     userContext: { name }
   } = props

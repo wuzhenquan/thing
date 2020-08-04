@@ -43,7 +43,7 @@ const Todo: React.FC<TodoProps> = props => {
 
   const fetchTodos = useCallback(() => getTodos(), [getTodos])
 
-  useEffect(() => { fetchTodos() }, [fetchTodos]) // how to fix this line?
+  useEffect(() => { fetchTodos() }, [fetchTodos])
 
   const addTodo = () => {
     const {
