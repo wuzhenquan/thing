@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import TodoContext from '../context/Todo/TodoContext'
 import * as api from '../api'
 
@@ -26,12 +26,11 @@ interface DeleteTodoFunc {
 const TodoStore: React.FC = props => {
   const [todosData, setTodosData] = useState<TodoInfo[]>([])
 
-  // TODO add useCallback
-  const getTodos: GetTodosFunc = () => {
-    return api.getTodos().then(todosData => {
-      Array.isArray(todosData) && setTodosData(todosData)
-    })
-  }
+  const getTodos: GetTodosFunc = useCallback(async () => {
+    const todosData = await api.getTodos()
+    Array.isArray(todosData) && setTodosData(todosData)
+    return todosData
+  }, [])
 
   const addTodo: AddTodoFunc = async () => {
     const content = ''

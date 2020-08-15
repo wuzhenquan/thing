@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import Icon from '../../icons/Icon'
 import TodoItem from './TodoItem'
 import WithTodoContext from '../../../context/Todo/WithTodoContext'
@@ -41,9 +41,7 @@ const Todo: React.FC<TodoProps> = props => {
   } = props
   const [focusTodoId, setFocusTodoId] = useState(0)
 
-  const fetchTodos = useCallback(() => getTodos(), [getTodos])
-
-  useEffect(() => { fetchTodos() }, [fetchTodos])
+  useEffect(() => { getTodos() }, [getTodos])
 
   const addTodo = () => {
     const {
@@ -56,11 +54,12 @@ const Todo: React.FC<TodoProps> = props => {
       })
   }
 
-  const editTodo: EditTodoFunc = (info, index, contentValue) => {
+  const editTodo: EditTodoFunc = async (info, index, contentValue) => {
     const {
       todoContext: { editTodo }
     } = props
-    return editTodo(info, index, contentValue).then(() => changeFocusId(0))
+    await editTodo(info, index, contentValue)
+    return changeFocusId(0)
   }
 
   const deleteTodo: DeleteTodoFunc = (id, index) => {
