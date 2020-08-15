@@ -1,6 +1,6 @@
 ### Overview
 
-![overview](https://github.com/wuzhenquan/thing/blob/master/record-images/overview.md)
+![overview](https://github.com/wuzhenquan/thing/blob/master/record-images/overview.png?raw=true)
 
 ### Installation
 
