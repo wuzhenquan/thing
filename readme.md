@@ -10,7 +10,7 @@ yarn
 
 ### Getting Started
 
-**mongoDB **
+**mongoDB**
 
 [Install MongoDB](https://docs.mongodb.com/manual/administration/install-community/) 
 
